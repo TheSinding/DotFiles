@@ -1,6 +1,8 @@
 # Dot Files - 2016
 **This is my dot files, do with them as you want biatch**
 
+**This repo uses YADM <-- Look it up [YADM](https://thelocehiliosan.github.io/yadm/)**
+
 ## Contains
 + zsh config
 + bashrc config
