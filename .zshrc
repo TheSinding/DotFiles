@@ -48,8 +48,11 @@ if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.config/composer/vendor/bin:$HOME/.local/bin:$PATH"
 fi
 
+# Exports
 export TERM='xterm-256color'
 export DEFAULT_USER='TheSinding'
 export JAVA_HOME=/usr/lib/jvm/
-source /home/thesinding/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+export EDITOR=vim
+
+# Sourcing
 source /home/thesinding/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
