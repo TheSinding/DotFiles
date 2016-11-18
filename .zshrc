@@ -13,7 +13,7 @@ ZSH_THEME="spaceship"
 # Simon Sinding - renremoulade.me
 # 2016 - Oct
 
-plugins=(git osx rake builder zsh-autosuggestions zsh-syntax-highlighting )
+plugins=(git osx rake builder alias-tips zsh-autosuggestions zsh-syntax-highlighting-filetypes )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -51,3 +51,5 @@ fi
 export TERM='xterm-256color'
 export DEFAULT_USER='TheSinding'
 export JAVA_HOME=/usr/lib/jvm/
+source /home/thesinding/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+source /home/thesinding/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh

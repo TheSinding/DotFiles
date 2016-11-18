@@ -17,7 +17,7 @@ cursor_blink     = true
 foreground      = #E7E8EB
 foreground_bold = #E7E8EB
 cursor          = #E7E8EB
-background      = #2F333A
+background      = #282A36
 
 
 # black
