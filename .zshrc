@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=$HOME/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -26,33 +26,30 @@ alias eb="vim ~/.zshrc"
 alias ewm='vim ~/.config/bspwm/bspwmrc'
 alias ekm='vim ~/.config/sxhkd/sxhkdrc'
 alias ep='vim ~/.config/bspwm/panels/panel'
-alias hej="echo 'Eyyyyyy fucker!'"
-alias StatusBat='upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "percentage"'
-alias rb='pkill -x panel; pkill -x compton; pkill -x lemonbar; bspwmrc'
 alias s='cd ..'
 alias ch='cd ~'
-alias renform="cd /var/www/html/wp-content/plugins/RenForm"
 alias e='vim'
-alias Pretty="echo Yes I know fucker, better than Peters" 
+
 mkcd(){
     if [[ "$1" ]]
     then mkdir -p "$1" && cd "$1"
     fi
 }
 
-alias apt-get="echo 'STOP USING APT-GET!!'"
-alias sudo\ apt-get="echo 'STOP USING APT-GET!!'"
-
-
-if [ -d "$HOME/.local/bin" ]; then
-    PATH="$HOME/.config/composer/vendor/bin:$HOME/.local/bin:$PATH"
-fi
 
 # Exports
 export TERM='xterm-256color'
 export DEFAULT_USER='TheSinding'
 export JAVA_HOME=/usr/lib/jvm/
 export EDITOR=vim
+export GOPATH="$HOME/code/resources/Go/"
+
+if [ -d "$GOPATH/bin" ]; then
+	PATH="$PATH:$GOPATH/bin"
+fi
+if [ -d "$HOME/.local/bin" ]; then
+    PATH="$HOME/.config/composer/vendor/bin:$HOME/.local/bin:$PATH"
+fi
 
 # Sourcing
 source /home/thesinding/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
