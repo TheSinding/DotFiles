@@ -43,12 +43,23 @@ export DEFAULT_USER='TheSinding'
 export JAVA_HOME=/usr/lib/jvm/
 export EDITOR=vim
 export GOPATH="$HOME/code/resources/Go/"
+export LOCALBIN="$HOME/.local/bin"
 
 if [ -d "$GOPATH/bin" ]; then
 	PATH="$PATH:$GOPATH/bin"
+else 
+				echo "$GOPATH does not exsist"
+				echo "Creating it for you"
+				mkdir $GOPATH -p
+				echo "Done"
 fi
-if [ -d "$HOME/.local/bin" ]; then
+if [ -d $LOCALBIN ]; then
     PATH="$HOME/.config/composer/vendor/bin:$HOME/.local/bin:$PATH"
+else
+				echo "$LOCALBIN does not exsist"
+				echo "Creating it for you"
+				mkdir $LOCALBIN -p
+				echo "Done"
 fi
 
 # Sourcing
