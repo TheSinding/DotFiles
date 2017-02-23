@@ -130,3 +130,4 @@ if [ -f "$HOME/code/Klibbert/install.sh" ]; then
 					su -c "/bin/bash $HOME/code/Klibbert/install.sh" root
 	fi
 fi
+echo "Thank you, come again!"
