@@ -1,17 +1,10 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
-
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
-
 # Zsh Config
 # Simon Sinding - renremoulade.me
 # 2016 - Oct
+
+
+export ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="bullet-train"
 
 plugins=(git osx rake builder alias-tips zsh-autosuggestions zsh-syntax-highlighting-filetypes )
 
@@ -29,6 +22,7 @@ alias ep='vim ~/.config/bspwm/panels/panel'
 alias s='cd ..'
 alias ch='cd ~'
 alias e='vim'
+alias ya='PAGER="less -R" yaourt --pager --color'
 
 mkcd(){
     if [[ "$1" ]]
@@ -36,15 +30,14 @@ mkcd(){
     fi
 }
 
-
 # Exports
 export TERM='xterm-256color'
 export DEFAULT_USER='TheSinding'
-export JAVA_HOME=/usr/lib/jvm/
+export JAVA_HOME=/usr/lib/jvm/default
 export EDITOR=vim
 export GOPATH="$HOME/code/resources/Go/"
 export LOCALBIN="$HOME/.local/bin"
-
+export LC_ALL="en_DK.UTF-8"
 if [ -d "$GOPATH/bin" ]; then
 	PATH="$PATH:$GOPATH/bin"
 else 
@@ -53,6 +46,7 @@ else
 				mkdir $GOPATH -p
 				echo "Done"
 fi
+
 if [ -d $LOCALBIN ]; then
     PATH="$HOME/.config/composer/vendor/bin:$HOME/.local/bin:$PATH"
 else
@@ -62,5 +56,9 @@ else
 				echo "Done"
 fi
 
+# This line is for removing the VIM Ctrl-S thing..
+stty -ixon
+
 # Sourcing
+# The line under here needs to be the last line for my install script to work!
 source /home/thesinding/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
