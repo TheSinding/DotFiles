@@ -35,9 +35,10 @@ export TERM='xterm-256color'
 export DEFAULT_USER='TheSinding'
 export JAVA_HOME=/usr/lib/jvm/default
 export EDITOR=vim
-export GOPATH="$HOME/code/resources/Go/"
+export GOPATH="$HOME/code/resources/Go"
 export LOCALBIN="$HOME/.local/bin"
 export LC_ALL="en_DK.UTF-8"
+export ADB="$HOME/sdks/platform-tools"
 if [ -d "$GOPATH/bin" ]; then
 	PATH="$PATH:$GOPATH/bin"
 else 
@@ -46,7 +47,9 @@ else
 				mkdir $GOPATH -p
 				echo "Done"
 fi
-
+if [ -d $ADB ]; then
+				PATH="$ADB:$PATH"
+fi
 if [ -d $LOCALBIN ]; then
     PATH="$HOME/.config/composer/vendor/bin:$HOME/.local/bin:$PATH"
 else
