@@ -4,12 +4,14 @@
 
 
 export ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="bullet-train"
+export SCRIPTS="$HOME/scripts"
 
-plugins=(git osx rake builder alias-tips zsh-autosuggestions zsh-syntax-highlighting-filetypes )
+ZSH_THEME="miloshadzic"
+
+plugins=(git osx rake builder alias-tips zsh-autosuggestions zsh-syntax-highlighting-filetypes copyzshell )
 
 source $ZSH/oh-my-zsh.sh
-
+source $SCRIPTS/antigen.zsh 
 # Custom aliases 
 alias c='clear'
 alias wee='weechat'
@@ -62,6 +64,9 @@ fi
 # This line is for removing the VIM Ctrl-S thing..
 stty -ixon
 
+
+antigen bundle KasperChristensen/mylocation
 # Sourcing
 # The line under here needs to be the last line for my install script to work!
 source /home/thesinding/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+
