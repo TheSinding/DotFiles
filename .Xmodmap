@@ -1,0 +1,12 @@
+! Mac style keybindings eg the 1/2 buttons is a $
+! The {} and [] is on the same 8 and 9 
+! lets see if we like it 
+keycode 49 = dollar
+keycode  17 = 8 parenleft 8 asterisk bracketleft braceleft
+keycode  18 = 9 parenright 9 parenleft bracketright braceright
+keycode  16 = 7 slash 7 ampersand NoSymbol division
+keycode  19 = 0 equal 0 parenright NoSymbol degree
+
+! Disables capslock and makes it to an escape
+clear lock
+keycode 66 = Escape Caps_Lock
