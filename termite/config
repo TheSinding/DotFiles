@@ -9,7 +9,7 @@
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 [options]
 #font = Source Code Pro For Powerline Regular 10
-font = Roboto Mono for Powerline, Regular 10
+font = Roboto Mono For Powerline, Regular 10
 #font = Fira Code, Regular 11
 #font = Hack, Regular 11
 clickable_url    = true

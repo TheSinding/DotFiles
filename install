@@ -5,8 +5,6 @@
 #		other stuff
 BOLD=$(tput bold)
 NORMAL=$(tput sgr0)
-printf -v line "%.0s-" {1..40}
-
 
 packmgr='unknown'
 function os_type
@@ -14,24 +12,11 @@ function os_type
 case `uname` in
 	Linux )
 		echo "Linux distro, checking package manager"
-		echo ${line// /}
      		LINUX=1
      		which yum >/dev/null  2>&1 && { echo "CentOS, Fedora, Redhat detected"; packmgr='yum'; return; }     	
  		which zypper >/dev/null 2>&1 && { echo "OpenSuse detected"; packmgr='zypper'; return; }
      		which apt-get >/dev/null 2>&1 && { echo "Debian based detected"; packmgr='apt'; return; }
-		which pacman  >/dev/null 2>&1 && { echo "Arch based detected"; packmgr='pacman'; }
-		if hash yay 2>/dev/null; then
-			echo ${line// /}
-			echo "Detected yay package manager, do you want to use this?"
-			echo "${BOLD}Note:${NORMAL} This is needed to install AUR packages"
-			select yn in "Yes" "No"; do
-
-	    		case $yn in
-		        	Yes ) packmgr='yay'; break;;
-	       	 		No ) break;;
-	    			esac
-			done
-		fi
+		which pacman  >/dev/null 2>&1 && { echo "Arch based detected"; packmgr='pacman'; return; }
      ;;
   	Darwin )
      		DARWIN=1
@@ -63,13 +48,9 @@ function link {
 }
 function installPackage {
 case $packmgr in
-	yay)
-		$packmgr -Sy;
-		$packmgr -S $1 --needed;
-	;;
 	pacman)
 		sudo $packmgr -Sy;
-		sudo $packmgr -S $1 --needed;
+		sudo $packmgr -S $1;
 	;;
 	apt)
 		sudo $packmgr update;
@@ -85,19 +66,6 @@ case $packmgr in
 	;;
 esac
 
-}
-
-function readApplications {
-	lines=$(while IFS="" read -r line; do
-		echo $(sed 's/#.*//g' <<< ${line}); 
-	done < $1)
-	echo $lines
-
-}
-
-function installApplications {
-	packages=$(readApplications $1)
-	installPackage "$packages"
 }
 
 USER_ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
@@ -128,7 +96,7 @@ fi
 if [ ! -d "$HOME/clones" ]; then
 	mkdir $HOME/clones
 fi
-
+printf -v line "%.0s-" {1..40}
 
 echo -e "\n${line// /-}"
 printf "${BOLD}Linking stuff ${NORMAL}\n"
@@ -156,11 +124,12 @@ if [ -f $PWD/applications ]; then
 	echo "Install applications from \"applications\"?"
 	select yn in "Yes" "No"; do
     		case $yn in
-	        	Yes ) installApplications $PWD/applications; break;;
+	        	Yes ) make install; break;;
        	 		No ) break;;
     		esac
 	done	
 fi	
+
 if [ ! -f $HOME/.xinitrc ]; then
        echo "Creating xinitrc"
 	touch $HOME/.xinitrc
