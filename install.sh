@@ -20,18 +20,9 @@ case `uname` in
  		which zypper >/dev/null 2>&1 && { echo "OpenSuse detected"; packmgr='zypper'; return; }
      		which apt-get >/dev/null 2>&1 && { echo "Debian based detected"; packmgr='apt'; return; }
 		which pacman  >/dev/null 2>&1 && { echo "Arch based detected"; packmgr='pacman'; }
-		if hash yay 2>/dev/null; then
-			echo ${line// /}
-			echo "Detected yay package manager, do you want to use this?"
-			echo "${BOLD}Note:${NORMAL} This is needed to install AUR packages"
-			select yn in "Yes" "No"; do
-
-	    		case $yn in
-		        	Yes ) packmgr='yay'; break;;
-	       	 		No ) break;;
-	    			esac
-			done
-		fi
+		
+		which yay  >/dev/null 2>&1 && { echo "Using AUR"; packmgr='yay'; return; }
+		return;
      ;;
   	Darwin )
      		DARWIN=1
@@ -116,7 +107,7 @@ if ! hash zsh 2>/dev/null; then
 	echo "Changing shell"
 	chsh -s $(which zsh)
 	echo "Installing Oh My ZSH"
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 fi
 
 
@@ -154,12 +145,7 @@ echo -e "\n${line// /}"
 
 if [ -f $PWD/applications ]; then
 	echo "Install applications from \"applications\"?"
-	select yn in "Yes" "No"; do
-    		case $yn in
-	        	Yes ) installApplications $PWD/applications; break;;
-       	 		No ) break;;
-    		esac
-	done	
+	installApplications $PWD/applications;
 fi	
 if [ ! -f $HOME/.xinitrc ]; then
        echo "Creating xinitrc"

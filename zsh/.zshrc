@@ -15,7 +15,7 @@ source $ZSH/oh-my-zsh.sh
 #source $CLONE_DIR/enhancd/init.sh
 
 # Other ?
-eval "$(jump shell)"
+source /etc/profile.d/autojump.zsh
 
 # Custom aliases 
 
@@ -103,7 +103,7 @@ stty -ixon
 
 # Sourcing
 # The line under here needs to be the last line for my install script to work!
-source /home/thesinding/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
