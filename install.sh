@@ -92,7 +92,7 @@ esac
 
 }
 
-function readApplications {
+function readFileToLine {
 	lines=$(while IFS="" read -r line; do
 		echo $(sed 's/#.*//g' <<< ${line}); 
 	done < $1)
@@ -101,7 +101,7 @@ function readApplications {
 }
 
 function installApplications {
-	packages=$(readApplications $1)
+	packages=$(readFileToLine $1)
 	installPackage "$packages"
 }
 
