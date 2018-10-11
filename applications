@@ -1,7 +1,7 @@
 # Add applications to be installed by the installer script here 
 # Properbly only works with pacman
 # It has to be the exact package name
-code # Visual Studio Code
+visual-studio-code-bin # Visual Studio Code
 exa # New Comment
 bat # Better cat
 termite # Console
