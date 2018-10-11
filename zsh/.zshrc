@@ -54,11 +54,10 @@ mkcd(){
 # Exports
 export TERM='xterm-256color'
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
-export DEFAULT_USER='TheSinding'
 export ANDROID_HOME="$HOME/Android/Sdk"
 export JAVA_HOME="/usr/lib/jvm/default"
 export JDK_HOME="/usr/lib/jvm/java-8-openjdk/"
-export EDITOR=vim
+export EDITOR="vim"
 export GOPATH="$HOME/code/resources/Go"
 export LOCALBIN="$HOME/.local/bin"
 export LC_ALL="en_DK.UTF-8"
@@ -67,9 +66,9 @@ export ANDROID_TOOLS="$ANDROID_HOME/tools"
 
 # Bullet Train Specific
 export BULLETTRAIN_DIR_EXTENDED=0
-export BULLETTRAIN_DIR_BG=0
-export BULLETTRAIN_DIR_FG=15
-export BULLETTRAIN_TIME_BG=6
+export BULLETTRAIN_DIR_BG=15
+export BULLETTRAIN_DIR_FG=0
+export BULLETTRAIN_TIME_BG=5
 export BULLETTRAIN_TIME_FG=15
 export BULLETTRAIN_GIT_BG=15
 export CUSTOM_START="~ %F{magenta}>"
