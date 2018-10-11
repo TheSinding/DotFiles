@@ -17,6 +17,11 @@ source $ZSH/oh-my-zsh.sh
 # Other ?
 source /etc/profile.d/autojump.zsh
 
+# Open TMUX if exists
+if [ -z "$TMUX" ]
+then
+    tmux attach -t TMUX || tmux new -s TMUX
+fi
 # Custom aliases 
 
 alias grep='grep --color=auto'

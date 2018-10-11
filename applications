@@ -2,10 +2,12 @@
 # Properbly only works with pacman
 # It has to be the exact package name
 visual-studio-code-bin # Visual Studio Code
+pgcli
+docker
 exa # New Comment
 bat # Better cat
 termite # Console
-slack
+slack-desktop
 ttf-google-fonts-typewolf
 insomnia
 ttf-roboto-mono-powerline-git

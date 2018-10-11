@@ -172,5 +172,14 @@ if [ ! -f $HOME/.xinitrc ]; then
  	echo "xmodmap ~/.Xmodmap" > ~/.xinitrc
 fi
 
+# Docker related stuff
+if [ hash docker 2>/dev/null ]; then
+	echo -e "${BOLD}Enabling and starting docker${NORMAL}"
+	sudo systemctl enable docker
+	echo -e "${BOLD}Adding user to docker group${NORMAL}"
+	sudo usermod -aG docker $USER
+	echo -e "${BOLD}Done, remember to log out${NORMAL}"
+fi
+
 echo -e "\n\n\n${BOLD}NOTE: To get zsh working, log in and out${NORMAL}"
 echo -e "\n${line// /}\n${BOLD}Thank you, come again!"
