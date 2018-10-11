@@ -34,7 +34,6 @@ alias sb='source ~/.zshrc'
 alias ewm='vim ~/.config/bspwm/bspwmrc'
 alias ekm='vim ~/.config/sxhkd/sxhkdrc'
 alias ep='vim ~/.config/bspwm/panels/panel'
-alias htop='vtop'
 alias s='cd ..'
 alias updatePacman="sudo pacman -Sy"
 alias ch='cd ~'
