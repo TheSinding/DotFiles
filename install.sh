@@ -7,22 +7,51 @@ BOLD=$(tput bold)
 NORMAL=$(tput sgr0)
 printf -v line "%.0s-" {1..40}
 
-echo -e "${BOLD}WELCOME TO TIMMY THE TINY INSTALLER, HAVE A NICE STAY! <3"
-echo -e "READY, SET, BAKE!${NORMAL}"
-echo -e "\n\n${line// /-}"
-echo -e "${BOLD}Pulling submodules!${NORMAL}"
-echo -e "${line// /-}"
+function printHeadline {
+	echo -e "\n\n${line// /-}"
+	echo -e "${BOLD}$1${NORMAL}"
+	echo -e "${line// /-}"
+}
+
+function printLine {
+	echo -e "\n\n${line// /-}"
+}
+
+function printBold {
+	echo -e "${BOLD}$1${NORMAL}"
+}
+
+printBold "WELCOME TO TIMMY THE TINY INSTALLER, HAVE A NICE STAY! <3"
+
+# Print a nice ready set bake sequence
+printf "Ready"
+sleep 1
+printf " Set"
+sleep 0.2500 
+for (( i=0; i <= 4; i++ )); do
+	sleep 0.250
+	printf "."
+done
+printf " ${BOLD}BAKE!${NORMAL}\n"
+sleep 1
+
+
+
+######## Pull Git submodules ###########
+printHeadline "Pulling submodules!"
 git submodule update --init
+
 echo -e "${BOLD}Done${NORMAL}"
-echo -e "\n\n${line// /-}"
+########################################
+
+
 packmgr='unknown'
 function os_type
 {
 case `uname` in
 	Linux )
-		echo -e "${BOLD}This is a Linux distro, checking package manager, you sexy thaaaing <3 ${NORMAL}"
-		echo ${line// /}
-     		LINUX=1
+		printHeadline "This is a Linux distro, checking package manager, you sexy thaaaing <3"
+    		LINUX=1
      		which yum >/dev/null  2>&1 && { echo "CentOS, Fedora, Redhat detected"; packmgr='yum'; return; }     	
  		which zypper >/dev/null 2>&1 && { echo "OpenSuse detected"; packmgr='zypper'; return; }
      		which apt-get >/dev/null 2>&1 && { echo "Debian based detected"; packmgr='apt'; return; }
@@ -40,23 +69,28 @@ case `uname` in
 esac
 }  
 os_type
+
+##### Add colors to pacman output ######
 if [ "$packmgr" == "pacman" ] || [ "$packmgr" == "yay" ]; then
 	if [ -f /etc/pacman.conf ]; then
 		echo -e "\n${BOLD}Adding colors to Pacman${NORMAL}"
 		sudo sed -i 's/#Color/Color/g' /etc/pacman.conf
 	fi
 fi
+#######################################
 
-
-
+################ Flooff ######################
 if [[ $LINUX -ne 1 ]]; then
 	echo "Unknown linux";
 fi
+
 if [[ "$packmgr" == "unknown" ]]; then 
 	echo "Unknown linux distro, exiting";
 	exit 1;
 fi
+###############################################
 
+######### Link function ############
 
 function link {
 	printf "%-40s" "$3"
@@ -66,6 +100,11 @@ function link {
 		printf " - ${BOLD} Link exists${NORMAL}\n"
 	fi
 }
+
+
+
+# Installer function using system package manger #
+
 function installPackage {
 case $packmgr in
 	yay)
@@ -92,6 +131,8 @@ esac
 
 }
 
+## Read a file into one line ##
+
 function readFileToLine {
 	lines=$(while IFS="" read -r line; do
 		echo $(sed 's/#.*//g' <<< ${line}); 
@@ -99,6 +140,8 @@ function readFileToLine {
 	echo $lines
 
 }
+
+#### Install the apps listed in a file #### 
 
 function installApplications {
 	packages=$(readFileToLine $1)
@@ -116,12 +159,14 @@ LOCALTMUX="$PWD/tmuxconfig"
 TERMITE="$PWD/termite"
 
 
+###### Install ZSH and OH MY ZSH!!! #########
+
 if ! hash zsh 2>/dev/null; then
-	echo "Installing ZSH"
+	printBold "Installing ZSH"
 	installPackage zsh
-	echo "Changing shell"
+	printBold "Changing shell"
 	chsh -s $(which zsh)
-	echo "Installing Oh My ZSH"
+	printBold "Installing Oh My ZSH"
 	git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 fi
 
@@ -136,9 +181,9 @@ if [ ! -d "$HOME/clones" ]; then
 fi
 
 
-echo -e "\n${line// /-}"
-printf "${BOLD}Linking stuff ${NORMAL}\n"
-echo ${line// /-}
+############## Linking Stuff! ##############
+
+printHeadline "Linking stuff!"
 
 link "$ZSH/plugins/*" $USER_ZSH_PLUGINS "Linking Plugins"
 link $ZSH/themes/bullet-train/bullet-train.zsh-theme $USER_ZSH_THEMES/bullet-train.zsh-theme "Linking Bullet Train Theme"
@@ -158,28 +203,30 @@ link "$LOCALTMUX/.tmux.conf.local" "$HOME/.tmux.conf.local" "Linking local TMUX 
 
 link $PWD/.Xmodmap $HOME/.Xmodmap "Linking Xmodmap"
 
-echo -e "\n${line// /}"
+
+
+### Install applications from ./applications file ###
 
 if [ -f $PWD/applications ]; then
-	echo -e "\n${line// /-}"
-	echo "${BOLD}Installing applications from \"applications\"${NORMAL}"
-	echo -e "${line// /-}"
+	printHeadline "${BOLD}Installing applications from \"applications\"${NORMAL}"
 	installApplications $PWD/applications;
 fi	
 if [ ! -f $HOME/.xinitrc ]; then
-       	echo "${BOLD}Creating xinitrc${NORMAL}"
+       	printBold "Creating xinitrc"
 	touch $HOME/.xinitrc
  	echo "xmodmap ~/.Xmodmap" > ~/.xinitrc
 fi
 
 # Docker related stuff
 if [ hash docker 2>/dev/null ]; then
-	echo -e "${BOLD}Enabling and starting docker${NORMAL}"
+	printHeadline "Docker stuff"
+	printBold "Enabling and starting docker"
 	sudo systemctl enable docker
-	echo -e "${BOLD}Adding user to docker group${NORMAL}"
+	printBold "Adding user to docker group"
 	sudo usermod -aG docker $USER
-	echo -e "${BOLD}Done, remember to log out${NORMAL}"
+	printBold "Done, remember to log out"
 fi
 
-echo -e "\n\n\n${BOLD}NOTE: To get zsh working, log in and out${NORMAL}"
+### Goodbye ###
+printBold "\n\n\nNOTE: To get zsh working, log in and out"
 echo -e "\n${line// /}\n${BOLD}Thank you, come again!"
