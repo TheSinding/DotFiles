@@ -13,4 +13,5 @@ autojump
 npm
 nodejs
 kubectl-bin
-
+vim
+tmux

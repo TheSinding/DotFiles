@@ -7,13 +7,20 @@ BOLD=$(tput bold)
 NORMAL=$(tput sgr0)
 printf -v line "%.0s-" {1..40}
 
-
+echo -e "${BOLD}WELCOME TO TIMMY THE TINY INSTALLER, HAVE A NICE STAY! <3"
+echo -e "READY, SET, BAKE!${NORMAL}"
+echo -e "\n\n${line// /-}"
+echo -e "${BOLD}Pulling submodules!${NORMAL}"
+echo -e "${line// /-}"
+git submodule update --init
+echo -e "${BOLD}Done${NORMAL}"
+echo -e "\n\n${line// /-}"
 packmgr='unknown'
 function os_type
 {
 case `uname` in
 	Linux )
-		echo "Linux distro, checking package manager"
+		echo -e "${BOLD}This is a Linux distro, checking package manager, you sexy thaaaing <3 ${NORMAL}"
 		echo ${line// /}
      		LINUX=1
      		which yum >/dev/null  2>&1 && { echo "CentOS, Fedora, Redhat detected"; packmgr='yum'; return; }     	
@@ -33,6 +40,13 @@ case `uname` in
 esac
 }  
 os_type
+if [ "$packmgr" == "pacman" ] || [ "$packmgr" == "yay" ]; then
+	if [ -f /etc/pacman.conf ]; then
+		echo -e "\n${BOLD}Adding colors to Pacman${NORMAL}"
+		sudo sed -i 's/#Color/Color/g' /etc/pacman.conf
+	fi
+fi
+
 
 
 if [[ $LINUX -ne 1 ]]; then
@@ -98,6 +112,7 @@ USER_ZSH="$HOME/.oh-my-zsh"
 USER_CONFIG="$HOME/.config"
 ZSH="$PWD/zsh"
 TMUX="$PWD/tmux"
+LOCALTMUX="$PWD/tmuxconfig"
 TERMITE="$PWD/termite"
 
 
@@ -139,19 +154,23 @@ fi
 link $TERMITE/config $HOME/.config/termite/config "Linking Termite config"
 
 link $TMUX/.tmux.conf $HOME/.tmux.conf "Linking TMUX config"
+link "$LOCALTMUX/.tmux.conf.local" "$HOME/.tmux.conf.local" "Linking local TMUX config"
+
 link $PWD/.Xmodmap $HOME/.Xmodmap "Linking Xmodmap"
 
 echo -e "\n${line// /}"
 
 if [ -f $PWD/applications ]; then
-	echo "Install applications from \"applications\"?"
+	echo -e "\n${line// /-}"
+	echo "${BOLD}Installing applications from \"applications\"${NORMAL}"
+	echo -e "${line// /-}"
 	installApplications $PWD/applications;
 fi	
 if [ ! -f $HOME/.xinitrc ]; then
-       echo "Creating xinitrc"
+       	echo "${BOLD}Creating xinitrc${NORMAL}"
 	touch $HOME/.xinitrc
  	echo "xmodmap ~/.Xmodmap" > ~/.xinitrc
 fi
 
-
+echo -e "\n\n\n${BOLD}NOTE: To get zsh working, log in and out${NORMAL}"
 echo -e "\n${line// /}\n${BOLD}Thank you, come again!"
