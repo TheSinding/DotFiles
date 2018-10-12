@@ -69,7 +69,14 @@ export BULLETTRAIN_DIR_FG=0
 export BULLETTRAIN_TIME_BG=5
 export BULLETTRAIN_TIME_FG=15
 export BULLETTRAIN_GIT_BG=15
-export CUSTOM_START="~ %F{magenta}>"
+export BULLETTRAIN_PROMPT_CHAR="%F{white}~ %F{magenta}>"
+
+BULLETTRAIN_PROMPT_ORDER=(
+  git
+  context
+  dir
+  time
+)
 
 # Syntax highlighting
 ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=5,underline
