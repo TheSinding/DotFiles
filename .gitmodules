@@ -11,5 +11,5 @@
 	path = zsh/plugins/alias-tips
 	url = https://github.com/djui/alias-tips.git
 [submodule "tmux"]
-	path = tmux
+	path = tmux/tmux_gpakosz
 	url = https://github.com/gpakosz/.tmux.git
