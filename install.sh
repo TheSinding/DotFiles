@@ -227,6 +227,26 @@ if [ hash docker 2>/dev/null ]; then
 	printBold "Done, remember to log out"
 fi
 
+# Adding dotfiles location to the enviroments variables
+ENV_FILE="/etc/environment"
+DOTFILES_NAME="DOTFILES"
+if grep -Fq "$DOTFILES_NAME" $ENV_FILE; then
+	DOTFILES_LINE=$(grep -F "$DOTFILES_NAME" $ENV_FILE) 
+	DOTFILES_VALUE=$(sed 's/.*=//g; s/"//g' <<< $DOTFILES_LINE)
+	if [ ! "$DOTFILES_VALUE" == "$PWD" ]; then
+		printBold "Fixing wrong dotfiles env variable location!"
+		# SED doesn't like the / of a path, so we need to add \/ 
+		OLD_PATH=$(echo $DOTFILES_VALUE | sed 's_/_\\/_g')
+		NEW_PATH=$(echo $PWD | sed 's_/_\\/_g')
+		sudo sed -i "s/$OLD_PATH/$NEW_PATH/g" "$ENV_FILE"
+		exit 0
+	fi
+else 
+	printBold "Adding dotfiles env variable"
+	echo -e "# Added by Dotfiles install script\nDOTFILES=\"$PWD\"" | sudo tee -a $ENV_FILE
+fi
+
+
 ### Goodbye ###
 printBold "\n\n\nNOTE: To get zsh working, log in and out"
 echo -e "\n${line// /}\n${BOLD}Thank you, come again!"
