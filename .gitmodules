@@ -10,6 +10,10 @@
 [submodule "zsh/plugins/alias-tips"]
 	path = zsh/plugins/alias-tips
 	url = https://github.com/djui/alias-tips.git
-[submodule "tmux"]
-	path = tmux
+
+[submodule "tmux/tmux_gpakosz"]
+	path = tmux/tmux_gpakosz
 	url = https://github.com/gpakosz/.tmux.git
+[submodule "tmux/tpm"]
+	path = tmux/tpm
+	url = https://github.com/tmux-plugins/tpm

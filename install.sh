@@ -155,9 +155,10 @@ USER_ZSH="$HOME/.oh-my-zsh"
 USER_CONFIG="$HOME/.config"
 ZSH="$PWD/zsh"
 TMUX="$PWD/tmux"
-LOCALTMUX="$PWD/tmuxconfig"
+TMUXREPO="$TMUX/tmux_gpakosz"
+TPM="$TMUX/tpm"
 TERMITE="$PWD/termite"
-
+echo $TMUXREPO
 
 ###### Install ZSH and OH MY ZSH!!! #########
 
@@ -198,8 +199,15 @@ if [ ! -d $HOME/.config/termite ]; then
 fi
 link $TERMITE/config $HOME/.config/termite/config "Linking Termite config"
 
-link $TMUX/.tmux.conf $HOME/.tmux.conf "Linking TMUX config"
-link "$LOCALTMUX/.tmux.conf.local" "$HOME/.tmux.conf.local" "Linking local TMUX config"
+link $TMUXREPO/.tmux.conf $HOME/.tmux.conf "Linking TMUX config"
+link "$TMUX/.tmux.conf.local" "$HOME/.tmux.conf.local" "Linking local TMUX config"
+
+## Link TPM
+if [ ! -d $HOME/.tmux/plugins/tpm ]; then
+	mkdir $HOME/.tmux/plugins/tpm -p
+fi
+link "$TPM/*" $HOME/.tmux/plugins/tpm "Linking TPM"
+## 
 
 link $PWD/.Xmodmap $HOME/.Xmodmap "Linking Xmodmap"
 
