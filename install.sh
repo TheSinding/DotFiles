@@ -94,7 +94,7 @@ fi
 
 function link {
 	printf "%-40s" "$3"
-	if ln -s $1 $2 2>/dev/null; then
+	if ln -s -f $1 $2 2>/dev/null; then
 		printf " - ${BOLD} Done${NORMAL}\n"
 	else
 		printf " - ${BOLD} Link exists${NORMAL}\n"
@@ -190,7 +190,9 @@ link "$ZSH/plugins/*" $USER_ZSH_PLUGINS "Linking Plugins"
 link $ZSH/themes/bullet-train/bullet-train.zsh-theme $USER_ZSH_THEMES/bullet-train.zsh-theme "Linking Bullet Train Theme"
 
 if [ -f $HOME/.zshrc ]; then
-	mv $HOME/.zshrc $HOME/.zshrc.pre-dotfiles
+	if [ ! -f $HOME/.zshrc.pre-dotfiles ]; then
+		mv $HOME/.zshrc $HOME/.zshrc.pre-dotfiles
+	fi
 fi
 
 link $ZSH/.zshrc $HOME/.zshrc "Linking .zshrc"
