@@ -1,11 +1,11 @@
 [colors]
 
 # special
-foreground        = #d0c8c6
-foreground_bold   = #d0c8c6
-cursor            = #d0c8c6
+foreground        = #d1c6
+foreground_bold   = #d1c6
+cursor            = #d1c6
 cursor_foreground = #3b3228
-background        = rgba(59, 50, 40, 0.8)
+background        = rgba(59, 50, 40, 1)
 
 # black
 color0  = #3b3228
@@ -36,5 +36,5 @@ color6  = #7bbda4
 color14 = #7bbda4
 
 # white
-color7  = #d0c8c6
+color7  = #d1c6
 color15 = #f5eeeb
