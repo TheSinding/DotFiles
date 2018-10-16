@@ -98,7 +98,9 @@ fi
 if [ -d $ADB ]; then
     PATH="$ADB:$PATH"
 fi
-
+if [ -d $HOME/bin ]; then
+	PATH="$HOME/bin:$PATH"
+fi
 if [ -d $ANDROID_TOOLS ]; then
 	PATH="$ANDROID_TOOLS:$PATH"
 fi
