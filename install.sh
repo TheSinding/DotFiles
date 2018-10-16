@@ -147,7 +147,7 @@ function installApplications {
 	packages=$(readFileToLine $1)
 	installPackage "$packages"
 }
-
+ENV_FILE="/etc/environment"
 USER_ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 USER_ZSH_PLUGINS="$HOME/.oh-my-zsh/custom/plugins"
 USER_ZSH_THEMES="$HOME/.oh-my-zsh/themes"
@@ -157,6 +157,7 @@ ZSH="$PWD/zsh"
 TMUX="$PWD/tmux"
 TMUXREPO="$TMUX/tmux_gpakosz"
 TPM="$TMUX/tpm"
+MISC="$PWD/misc"
 TERMITE="$PWD/termite"
 echo $TMUXREPO
 
@@ -199,7 +200,22 @@ link $ZSH/.zshrc $HOME/.zshrc "Linking .zshrc"
 if [ ! -d $HOME/.config/termite ]; then 
 	mkdir $HOME/.config/termite -p
 fi
-link $TERMITE/config $HOME/.config/termite/config "Linking Termite config"
+
+# Termite Color switcher
+TERMITE_CSW="termite-color-switcher"
+TERMITE_CSW_PATH="$MISC/$TERMITE_CSW"
+
+# This is because of the termite color switcher
+link $TERMITE/theme $HOME/.config/termite/theme "Linking Termite Theme file"
+link $TERMITE/color $HOME/.config/termite "Linking Termite color files"
+link $TERMITE/option $HOME/.config/termite "Linking Termite options file"
+if [ ! -d $HOME/bin ]; then
+	mkdir $HOME/bin
+fi
+link $TERMITE_CSW_PATH/bin/color $HOME/bin/color "Linking Termite Color bin"
+
+# Without Termite color switcher
+# link $TERMITE/config $HOME/.config/termite/config "Linking Termite config"
 
 link $TMUXREPO/.tmux.conf $HOME/.tmux.conf "Linking TMUX config"
 link "$TMUX/.tmux.conf.local" "$HOME/.tmux.conf.local" "Linking local TMUX config"
@@ -238,7 +254,7 @@ if [ hash docker 2>/dev/null ]; then
 fi
 
 # Adding dotfiles location to the enviroments variables
-ENV_FILE="/etc/environment"
+
 DOTFILES_NAME="DOTFILES"
 if grep -Fq "$DOTFILES_NAME" $ENV_FILE; then
 	DOTFILES_LINE=$(grep -F "$DOTFILES_NAME" $ENV_FILE) 
