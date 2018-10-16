@@ -17,3 +17,6 @@
 [submodule "tmux/tpm"]
 	path = tmux/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "misc/termite-color-switcher"]
+	path = misc/termite-color-switcher
+	url = https://github.com/NearHuscarl/termite-color-switcher
