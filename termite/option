@@ -1,17 +1,8 @@
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# title      Nord Termite                                    +
-# project    nord-termite                                    +
-# version    0.2.0                                           +
-# repository https://github.com/arcticicestudio/nord-termite +
-# author     Arctic Ice Studio                               +
-# email      development@arcticicestudio.com                 +
-# copyright  Copyright (C) 2016                              +
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 [options]
 #font = Source Code Pro, Regular 10
-font = Roboto Mono, Regular 10
+#font = Roboto Mono, Regular 10
 #font = Fira Code, Regular 11
-#font = Hack, Regular 11
+font = Hack, Regular 11
 clickable_url    = true
 #browser          = google-chrome-beta
 allow_bold       = true
