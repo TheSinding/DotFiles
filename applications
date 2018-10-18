@@ -10,7 +10,7 @@ termite # Console
 slack-desktop
 ttf-google-fonts-typewolf
 insomnia
-ttf-roboto-mono-powerline-git
+powerline-fonts
 autojump
 npm
 nodejs

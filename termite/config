@@ -1,3 +1,44 @@
+[colors]
+
+# special
+foreground        = #d1c6
+foreground_bold   = #d1c6
+cursor            = #d1c6
+cursor_foreground = #3b3228
+background        = rgba(59, 50, 40, 1)
+
+# black
+color0  = #3b3228
+color8  = #7e705a
+
+# red
+color1  = #cb6077
+color9  = #cb6077
+
+# green
+color2  = #beb55b
+color10 = #beb55b
+
+# yellow
+color3  = #f4bc87
+color11 = #f4bc87
+
+# blue
+color4  = #8ab3b5
+color12 = #8ab3b5
+
+# magenta
+color5  = #a89bb9
+color13 = #a89bb9
+
+# cyan
+color6  = #7bbda4
+color14 = #7bbda4
+
+# white
+color7  = #d1c6
+color15 = #f5eeeb
+
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # title      Nord Termite                                    +
 # project    nord-termite                                    +
@@ -24,25 +65,3 @@ cursor_blink     = true
 cursor_shape	 = ibeam
 scrollback_lines = 10000
 
-[colors]
-#background = rgba(40, 42, 54, .98)
-background = #30343F
-foreground = #cccccc
-cursor = #b9b9b9
-
-color0 = #666666
-color1 = #cc6699
-color2 = #99cc66
-color3 = #cc9966
-color4 = #6699cc
-color5 = #9966cc
-color6 = #66cc99
-color7 = #cccccc
-color8 = #999999
-color9 = #ff99cc
-color10 = #ccff99
-color11 = #ffcc99
-color12 = #99ccff
-color13 = #cc99ff
-color14 = #99ffcc
-color15 = #ffffff

@@ -8,7 +8,7 @@ foreground = #fdf6e3
 foreground_bold = #fdf6e3
 
 # 20% background transparency (requires a compositor)
-background = rgba(0, 43, 54, 0.8)
+background = rgba(0, 43, 54, 1)
 
 # If unset, will reverse foreground and background
 highlight = #586e75

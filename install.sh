@@ -69,12 +69,14 @@ case `uname` in
 esac
 }  
 os_type
-
+PACMAN_CONFIG="/etc/pacman.conf"
 ##### Add colors to pacman output ######
 if [ "$packmgr" == "pacman" ] || [ "$packmgr" == "yay" ]; then
-	if [ -f /etc/pacman.conf ]; then
-		echo -e "\n${BOLD}Adding colors to Pacman${NORMAL}"
-		sudo sed -i 's/#Color/Color/g' /etc/pacman.conf
+	if [ -f $PACMAN_CONFIG ]; then
+		if grep -Fq "#Color" $PACMAN_CONFIG; then
+			echo -e "\n${BOLD}Adding colors to Pacman${NORMAL}"
+			sudo sed -i 's/#Color/Color/g' $PACMAN_CONFIG
+		fi
 	fi
 fi
 #######################################
