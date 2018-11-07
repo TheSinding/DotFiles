@@ -153,7 +153,7 @@ ENV_FILE="/etc/environment"
 USER_ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 USER_ZSH_PLUGINS="$HOME/.oh-my-zsh/custom/plugins"
 USER_ZSH_THEMES="$HOME/.oh-my-zsh/themes"
-USER_ZSH="$HOME/.oh-my-zsh"
+OH_MY_ZSH="$HOME/.oh-my-zsh"
 USER_CONFIG="$HOME/.config"
 ZSH="$PWD/zsh"
 TMUX="$PWD/tmux"
@@ -170,11 +170,11 @@ if ! hash zsh 2>/dev/null; then
 	installPackage zsh
 	printBold "Changing shell"
 	chsh -s $(which zsh)
+fi
+if [ ! -d "$OH_MY_ZSH" ]; then
 	printBold "Installing Oh My ZSH"
 	git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 fi
-
-
 
 # Check the regular folders
 if [ ! -d "$HOME/code" ]; then
