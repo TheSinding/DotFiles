@@ -21,6 +21,14 @@ function printBold {
 	echo -e "${BOLD}$1${NORMAL}"
 }
 
+if [ ! -d ".git" ]; then
+	printBold "No git repository found!";	
+	printBold "For this installer script to work, you need to clone the repository";
+	printBold "If you clone the repo, you need to install all the files manually";
+	printBold "Exiting";
+	exit 0;
+fi
+
 printBold "WELCOME TO TIMMY THE TINY INSTALLER, HAVE A NICE STAY! <3"
 
 # Print a nice ready set bake sequence
