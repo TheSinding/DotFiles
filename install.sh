@@ -24,7 +24,7 @@ function printBold {
 if [ ! -d ".git" ]; then
 	printBold "No git repository found!";	
 	printBold "For this installer script to work, you need to clone the repository";
-	printBold "If you clone the repo, you need to install all the files manually";
+	printBold "If you dont clone the repo, you need to install all the files manually";
 	printBold "Exiting";
 	exit 0;
 fi
