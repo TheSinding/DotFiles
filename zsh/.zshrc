@@ -16,6 +16,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Other ?
 source /etc/profile.d/autojump.zsh
+[[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
 
 # Open TMUX if exists
 if [ -z "$TMUX" ]
@@ -37,6 +38,7 @@ alias fg='feathers generate'
 alias c='clear'
 alias t="tmux"
 alias cat="bat"
+alias ping="prettyping"
 
 # Loading stuff
 if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi
@@ -64,11 +66,13 @@ export ANDROID_TOOLS="$ANDROID_HOME/tools"
 
 # Bullet Train Specific
 export BULLETTRAIN_DIR_EXTENDED=0
-export BULLETTRAIN_DIR_BG=15
-export BULLETTRAIN_DIR_FG=0
-export BULLETTRAIN_TIME_BG=5
-export BULLETTRAIN_TIME_FG=15
-export BULLETTRAIN_GIT_BG=15
+
+# export BULLETTRAIN_DIR_BG=15
+# export BULLETTRAIN_DIR_FG=0
+# export BULLETTRAIN_TIME_BG=5
+# export BULLETTRAIN_TIME_FG=15
+# export BULLETTRAIN_GIT_BG=15
+
 export BULLETTRAIN_PROMPT_CHAR="%F{white}~ %F{magenta}>"
 
 BULLETTRAIN_PROMPT_ORDER=(
