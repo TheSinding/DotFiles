@@ -29,7 +29,7 @@ alias grep='grep --color=auto'
 #alias ls='ls -la --color=auto' # This is the old boring ls
 alias ls='exa -lha --git' # This is the new exciting ls
 alias lst='exa -lhT -L 2 --git' # This is the new exciting ls
-alias eb="vim ~/.zshrc"
+alias eb="vim ~/.zshrc && echo 'Sourcing zsh file' && source ~/.zshrc"
 alias q="quasar"
 alias sb='source ~/.zshrc'
 alias s='cd ..'
@@ -40,6 +40,12 @@ alias t="tmux"
 alias cat="bat"
 alias ping="prettyping"
 
+trolol() {
+	for i in {1..100}; do;
+		echo "Ah ah aaaah! You didnt say the magic word!";
+		sleep 0.2;
+	done;
+}
 # Loading stuff
 if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi
 
