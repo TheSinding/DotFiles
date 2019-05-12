@@ -4,7 +4,8 @@
 visual-studio-code-bin # Visual Studio Code
 pgcli
 docker
-exa # New Comment
+lsd
+#exa # New Comment
 bat # Better cat
 termite # Console
 slack-desktop
