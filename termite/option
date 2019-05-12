@@ -2,9 +2,9 @@
 #font = Source Code Pro, Regular 10
 #font = Roboto Mono, Regular 10
 #font = Fira Code, Regular 11
-font = Hack Nerd Font, Regular 11
+font = Hack, Regular 11
 clickable_url    = true
-#browser          = google-chrome-beta
+browser          = google-chrome
 allow_bold       = true
 allow_italic     = true
 visible_bell     = true
