@@ -351,15 +351,36 @@ bind r source-file ~/.tmux.conf
 
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'Morantron/tmux-fingers'
+
+
 
 
 # TheSinding Mods
-bind -n C-w confirm-before kill-pane # Chrome style kill tab
+
 bind -n C-l choose-session 
-bind -n C-n new-session
+
 unbind C-b
 set -g prefix M-q
 bind M-q send-prefix
 
+## Resizing windows
+bind -n M-S-left resize-pane -L 2
+bind -n M-S-right resize-pane -R 2
+bind -n M-S-up resize-pane -U 2
+bind -n M-S-down resize-pane -D 2
+
+## Creating and deleting tab
+
+bind -n M-w kill-window
+bind -n C-n new-window
+
+## Creating and deleting sessions
+bind -n C-w kill-pane # Chrome style kill
+bind -n M-n new-session
+
+
+## Fullscreen mode
+bind -n C-F resize-pane -Z
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
