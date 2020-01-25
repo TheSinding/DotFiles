@@ -9,7 +9,7 @@ export CLONE_DIR="$HOME/clones"
 
 ZSH_THEME="bullet-train"
 
-plugins=(git rake builder alias-tips zsh-autosuggestions zsh-syntax-highlighting copyzshell)
+plugins=(git git-flow rake alias-tips zsh-autosuggestions zsh-syntax-highlighting copyzshell minikube)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -43,6 +43,16 @@ alias cat="bat"
 alias ping="prettyping"
 alias gr="gitlab-runner"
 alias gre="gitlab-runner exec"
+alias vim="nvim"
+alias tsa="todoster add -t " 
+alias tsl="todoster list"
+alias tsr="todoster remove"
+tsmd() {
+  todoster "mark" "$1" "done"
+}
+tsmnd() {
+  todoster "mark" "$1" "not-done"
+}
 # Because fuck Peter Brinck
 trolol() {
 	for i in {1..100}; do;
@@ -127,6 +137,9 @@ else
 	mkdir $LOCALBIN -p
 	echo "Done"
 fi
+if [ -d $HOME/Games/FTL-linux ]; then
+  PATH="$HOME/Games/FTL-linux/FTL:$PATH"
+fi
 
 # This line is for removing the VIM Ctrl-S thing..
 stty -ixon
@@ -138,9 +151,10 @@ source $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highli
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
+xmodmap ~/.Xmodmap
 ###-tns-completion-start-###
 if [ -f $USER/.tnsrc ]; then 
     source $HOME/.tnsrc 
 fi
+todoster list
 ###-tns-completion-end-###
