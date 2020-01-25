@@ -2,7 +2,8 @@
 #font = Source Code Pro, Regular 10
 #font = Roboto Mono, Regular 10
 #font = Fira Code, Regular 11
-font = Hack, Regular 11
+font = Fira Code, Regular 11
+#font = Victor Mono, 11
 clickable_url    = true
 browser          = google-chrome
 allow_bold       = true
