@@ -69,7 +69,10 @@ case `uname` in
 		return;
      ;;
   	Darwin )
+		printHeadline "Uhhh, this is a mac huh?!"
      		DARWIN=1
+		which brew  >/dev/null 2>&1 && { echo "Using Brew"; packmgr='brew'; return; }
+		return;
      ;;
   	* )
     		echo "Unknown OS, not supported by this script";
@@ -90,8 +93,8 @@ fi
 #######################################
 
 ################ Flooff ######################
-if [[ $LINUX -ne 1 ]]; then
-	echo "Unknown linux";
+if [[ $LINUX -ne 1 ]] || [[ $DARWIN ]]; then
+	echo "Unknown operating system";
 fi
 
 if [[ "$packmgr" == "unknown" ]]; then 
@@ -136,6 +139,9 @@ case $packmgr in
 	yum)
 		sudo $packmgr update;
 		sudo $packmgr install $1;
+	;;
+	brew)
+		brew install $1;
 	;;
 esac
 
