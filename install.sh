@@ -8,17 +8,17 @@ NORMAL=$(tput sgr0)
 printf -v line "%.0s-" {1..40}
 
 function printHeadline {
-	echo -e "\n\n${line// /-}"
-	echo -e "${BOLD}$1${NORMAL}"
-	echo -e "${line// /-}"
+	echo "\n\n${line// /-}"
+	echo "${BOLD}$1${NORMAL}"
+	echo "${line// /-}"
 }
 
 function printLine {
-	echo -e "\n\n${line// /-}"
+	echo "\n\n${line// /-}"
 }
 
 function printBold {
-	echo -e "${BOLD}$1${NORMAL}"
+	echo "${BOLD}$1${NORMAL}"
 }
 
 if [ ! -d ".git" ]; then
@@ -42,16 +42,6 @@ for (( i=0; i <= 4; i++ )); do
 done
 printf " ${BOLD}BAKE!${NORMAL}\n"
 sleep 1
-
-
-
-######## Pull Git submodules ###########
-printHeadline "Pulling submodules!"
-git submodule update --init
-
-echo -e "${BOLD}Done${NORMAL}"
-########################################
-
 
 packmgr='unknown'
 function os_type
@@ -85,7 +75,7 @@ PACMAN_CONFIG="/etc/pacman.conf"
 if [ "$packmgr" == "pacman" ] || [ "$packmgr" == "yay" ]; then
 	if [ -f $PACMAN_CONFIG ]; then
 		if grep -Fq "#Color" $PACMAN_CONFIG; then
-			echo -e "\n${BOLD}Adding colors to Pacman${NORMAL}"
+			echo "\n${BOLD}Adding colors to Pacman${NORMAL}"
 			sudo sed -i 's/#Color/Color/g' $PACMAN_CONFIG
 		fi
 	fi
@@ -106,7 +96,7 @@ fi
 ######### Link function ############
 
 function link {
-	printf "%-40s" "$3"
+	printf "%-40s" "$1 -> $2: $3"
 	if ln -s -f $1 $2 2>/dev/null; then
 		printf " - ${BOLD} Done${NORMAL}\n"
 	else
@@ -161,33 +151,23 @@ function readFileToLine {
 
 function installApplications {
 	packages=$(readFileToLine $1)
+	echo "$packages"
 	installPackage "$packages"
 }
 ENV_FILE="/etc/environment"
-USER_ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
-USER_ZSH_PLUGINS="$HOME/.oh-my-zsh/custom/plugins"
-USER_ZSH_THEMES="$HOME/.oh-my-zsh/themes"
-OH_MY_ZSH="$HOME/.oh-my-zsh"
 USER_CONFIG="$HOME/.config"
 ZSH="$PWD/zsh"
 TMUX="$PWD/tmux"
 TMUXREPO="$TMUX/tmux_gpakosz"
 TPM="$TMUX/tpm"
 MISC="$PWD/misc"
-TERMITE="$PWD/termite"
 echo $TMUXREPO
-
-###### Install ZSH and OH MY ZSH!!! #########
 
 if ! hash zsh 2>/dev/null; then
 	printBold "Installing ZSH"
 	installPackage zsh
 	printBold "Changing shell"
 	chsh -s $(which zsh)
-fi
-if [ ! -d "$OH_MY_ZSH" ]; then
-	printBold "Installing Oh My ZSH"
-	git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 fi
 
 # Check the regular folders
@@ -198,13 +178,14 @@ if [ ! -d "$HOME/clones" ]; then
 	mkdir $HOME/clones
 fi
 
+if [ ! -d "$USER_CONFIG" ]; then
+	mkdir $USER_CONFIG
+fi
+
 
 ############## Linking Stuff! ##############
 
 printHeadline "Linking stuff!"
-
-link "$ZSH/plugins/*" $USER_ZSH_PLUGINS "Linking Plugins"
-link $ZSH/themes/bullet-train/bullet-train.zsh-theme $USER_ZSH_THEMES/bullet-train.zsh-theme "Linking Bullet Train Theme"
 
 if [ -f $HOME/.zshrc ]; then
 	if [ ! -f $HOME/.zshrc.pre-dotfiles ]; then
@@ -217,22 +198,6 @@ if [ ! -d $HOME/.config/termite ]; then
 	mkdir $HOME/.config/termite -p
 fi
 
-# Termite Color switcher
-TERMITE_CSW="termite-color-switcher"
-TERMITE_CSW_PATH="$MISC/$TERMITE_CSW"
-
-# This is because of the termite color switcher
-link $TERMITE/theme $HOME/.config/termite/theme "Linking Termite Theme file"
-link $TERMITE/color $HOME/.config/termite "Linking Termite color files"
-link $TERMITE/option $HOME/.config/termite "Linking Termite options file"
-if [ ! -d $HOME/bin ]; then
-	mkdir $HOME/bin
-fi
-link $TERMITE_CSW_PATH/bin/color $HOME/bin/color "Linking Termite Color bin"
-
-# Without Termite color switcher
-# link $TERMITE/config $HOME/.config/termite/config "Linking Termite config"
-
 link $TMUXREPO/.tmux.conf $HOME/.tmux.conf "Linking TMUX config"
 link "$TMUX/.tmux.conf.local" "$HOME/.tmux.conf.local" "Linking local TMUX config"
 
@@ -243,9 +208,7 @@ fi
 link "$TPM/*" $HOME/.tmux/plugins/tpm "Linking TPM"
 ## 
 
-link $PWD/.Xmodmap $HOME/.Xmodmap "Linking Xmodmap"
-
-
+link "$PWD/nvim" "$USER_CONFIG/nvim" "Linking NVIM Config"
 
 ### Install applications from ./applications file ###
 
@@ -253,21 +216,6 @@ if [ -f $PWD/applications ]; then
 	printHeadline "${BOLD}Installing applications from \"applications\"${NORMAL}"
 	installApplications $PWD/applications;
 fi	
-if [ ! -f $HOME/.xinitrc ]; then
-       	printBold "Creating xinitrc"
-	touch $HOME/.xinitrc
- 	echo "xmodmap ~/.Xmodmap" > ~/.xinitrc
-fi
-
-# Docker related stuff
-if [ hash docker 2>/dev/null ]; then
-	printHeadline "Docker stuff"
-	printBold "Enabling and starting docker"
-	sudo systemctl enable docker
-	printBold "Adding user to docker group"
-	sudo usermod -aG docker $USER
-	printBold "Done, remember to log out"
-fi
 
 # Adding dotfiles location to the enviroments variables
 
@@ -285,10 +233,9 @@ if grep -Fq "$DOTFILES_NAME" $ENV_FILE; then
 	fi
 else 
 	printBold "Adding dotfiles env variable"
-	echo -e "# Added by Dotfiles install script\nDOTFILES=\"$PWD\"" | sudo tee -a $ENV_FILE
+	echo "# Added by Dotfiles install script\nDOTFILES=\"$PWD\"" | sudo tee -a $ENV_FILE
 fi
 
 
 ### Goodbye ###
-printBold "\n\n\nNOTE: To get zsh working, log in and out"
-echo -e "\n${line// /}\n${BOLD}Thank you, come again!"
+echo "\n${line// /}\n${BOLD}Thank you, come again!"

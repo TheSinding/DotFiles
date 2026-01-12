@@ -4,34 +4,20 @@
 #
 # Properbly only works with pacman
 # It has to be the exact package name
-visual-studio-code-bin # Visual Studio Code
 pgcli
-docker
 lsd
-#exa # New Comment
 bat # Better cat
-termite # Console
-slack-desktop
-ttf-google-fonts-typewolf
+ghostty
+linearmouse
+rectangle
+1password
+1password-cli
+alt-tab
 insomnia
-powerline-fonts
 autojump
-npm
-nodejs
-kubectl-bin
-vim
 tmux
-xclip
-ttf-emojione
-ttf-hack
+font-zed-mono-nerd-font
 prettyping
-k9s-bin
 helm
-doctl-bin
-kubectl-bin
-ngrok
-postman-bin
-spotify
-wavemon
 neovim
-remmina
+spaceship
