@@ -209,6 +209,8 @@ link "$TPM/*" $HOME/.tmux/plugins/tpm "Linking TPM"
 ## 
 
 link "$PWD/nvim" "$USER_CONFIG/nvim" "Linking NVIM Config"
+link "$PWD/starship.toml" "$USER_CONFIG/starship.toml" "Linking starship Config"
+
 
 ### Install applications from ./applications file ###
 
