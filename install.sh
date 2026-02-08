@@ -105,6 +105,9 @@ function link {
 }
 
 
+# Create files if needed
+cp $PWD/starship/starship-gruvbox-dark.toml $PWD/starship/starship.toml 2>/dev/null || true
+cp $PWD/ghostty/config-gruvbox-dark $PWD/ghostty/config 2>/dev/null || true
 
 # Installer function using system package manger #
 
@@ -209,7 +212,17 @@ link "$TPM/*" $HOME/.tmux/plugins/tpm "Linking TPM"
 ## 
 
 link "$PWD/nvim" "$USER_CONFIG/nvim" "Linking NVIM Config"
-link "$PWD/starship.toml" "$USER_CONFIG/starship.toml" "Linking starship Config"
+link "$PWD/starship/starship.toml" "$USER_CONFIG/starship.toml" "Linking starship Config"
+
+# check if ghostty is installed, if it is, link the config
+if hash ghostty 2>/dev/null; then
+    if [ ! -d "$USER_CONFIG/ghostty" ]; then
+        mkdir "$USER_CONFIG/ghostty"
+    fi
+    link "$PWD/ghostty/config.yaml" "$USER_CONFIG/ghostty/config.yaml" "Linking Ghostty Config"
+fi
+
+link "$PWD/starship/starship.toml" "$USER_CONFIG/starship.toml" "Linking starship Config"
 
 
 ### Install applications from ./applications file ###

@@ -18,12 +18,15 @@ export TERM='xterm-256color'
 export HISTSIZE=1000000000
 export SAVEHIST=$HISTSIZE
 
-export BAT_THEME="gruvbox-dark"
+export COLORSCHEME="tokyonight"
+
+export BAT_THEME=$COLORSCHEME
 
 alias python=python3
 alias grep='grep --color=auto'
 alias ls='lsd -la'
 alias eb="vim ~/.zshrc && echo 'Sourcing zsh file' && source ~/.zshrc"
+alias en="vim ~/.config/nvim"
 alias sb='source ~/.zshrc'
 alias s='cd ..'
 alias c='code .'
@@ -34,7 +37,8 @@ alias vim="nvim"
 alias pingme="osascript -e 'display notification \"COMMAND DONE!\" with title \"PING PING MOTHERFUCKER\"'"
 alias gl='git pull'
 alias gp='git push'
-
+alias gco="git checkout"
+alias ll="lazygit"
 
 ## WARNING THIS DISABLES NVM 
 alias nvm="fnm"
@@ -45,6 +49,25 @@ setopt EXTENDED_HISTORY
 setopt autocd
 
 autoload -U compinit; compinit
+
+# Function which cp's the correct starship config file based on the current color scheme
+function set_colorscheme() {
+    ## Starship config
+    if [[ -f "$PWD/starship/starship-$COLORSCHEME.toml" ]]; then
+        cp "$PWD/starship/starship-$COLORSCHEME.toml" "$PWD/starship/starship.toml"
+    else
+        echo "No starship config found for color scheme: $COLORSCHEME"
+    fi
+
+    ## Ghostty config
+    if [[ -f "$PWD/ghostty/config-$COLORSCHEME" ]]; then
+        cp "$PWD/ghostty/config-$COLORSCHEME" "$PWD/ghostty/config"
+    else
+        echo "No ghostty config found for color scheme: $COLORSCHEME"
+    fi
+}
+
+set_colorscheme
 
 eval "$(starship init zsh)"
 
@@ -66,6 +89,7 @@ mkcd(){
   then mkdir -p "$1" && cd "$1"
   fi
 }
+
 
 # LEGO
 
