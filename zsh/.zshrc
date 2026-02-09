@@ -18,7 +18,7 @@ export TERM='xterm-256color'
 export HISTSIZE=1000000000
 export SAVEHIST=$HISTSIZE
 
-export COLORSCHEME="tokyonight"
+export COLORSCHEME="tokyonight-day"
 
 export BAT_THEME=$COLORSCHEME
 
@@ -144,3 +144,4 @@ export AWS_REGION=${AWS_DEFAULT_REGION}
 export SAML2AWS_REGION=${AWS_DEFAULT_REGION}
 
 . "$HOME/.local/bin/env"
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
