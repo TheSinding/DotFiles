@@ -17,8 +17,9 @@ export ANDROID_TOOLS="$ANDROID_HOME/tools"
 export TERM='xterm-256color'
 export HISTSIZE=1000000000
 export SAVEHIST=$HISTSIZE
+export DOTFILES="$HOME/code/DotFiles"
 
-export COLORSCHEME="tokyonight-day"
+export COLORSCHEME="tokyonight"
 
 export BAT_THEME=$COLORSCHEME
 
@@ -53,15 +54,15 @@ autoload -U compinit; compinit
 # Function which cp's the correct starship config file based on the current color scheme
 function set_colorscheme() {
     ## Starship config
-    if [[ -f "$PWD/starship/starship-$COLORSCHEME.toml" ]]; then
-        cp "$PWD/starship/starship-$COLORSCHEME.toml" "$PWD/starship/starship.toml"
+    if [[ -f "$DOTFILES/starship/starship-$COLORSCHEME.toml" ]]; then
+        cp "$DOTFILES/starship/starship-$COLORSCHEME.toml" "$DOTFILES/starship/starship.toml"
     else
         echo "No starship config found for color scheme: $COLORSCHEME"
     fi
 
     ## Ghostty config
-    if [[ -f "$PWD/ghostty/config-$COLORSCHEME" ]]; then
-        cp "$PWD/ghostty/config-$COLORSCHEME" "$PWD/ghostty/config"
+    if [[ -f "$DOTFILES/ghostty/config-$COLORSCHEME" ]]; then
+        cp "$DOTFILES/ghostty/config-$COLORSCHEME" "$DOTFILES/ghostty/config"
     else
         echo "No ghostty config found for color scheme: $COLORSCHEME"
     fi
