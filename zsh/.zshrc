@@ -71,6 +71,7 @@ function set_colorscheme() {
 set_colorscheme
 
 eval "$(starship init zsh)"
+eval "$(zoxide init zsh --cmd j)"
 
 source <(fzf --zsh)
 
@@ -102,6 +103,9 @@ alias am-tunnel-db='aws ssm start-session --target $(aws ssm describe-instance-i
 
 alias am-pgcli='pgcli $(aws secretsmanager get-secret-value --secret-id postgres-connection-string-base | jq -r ".SecretString | fromjson | .POSTGRESQL_CONNECTION_STRING" | sed "s/@.*/@localhost:5432/")'
 
+
+PATH="/opt/homebrew/opt/esphome/libexec/bin/:$PATH"
+
 #if [ -d "$HOME/Library/Android/sdk" ]; then
 #  ANDROID_HOME="$HOME/Library/Android/sdk"
 #  PATH="$ANDROID_HOME/platform-tools:$PATH"
@@ -128,13 +132,13 @@ stty -ixon
 #  nvm "$@"
 #}
 
-j() {
-  echo "Loading autojump..."
-  unset -f j
-  [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
-  # Call nvm with original arguments
-  j "$@"
-}
+# j() {
+#   echo "Loading autojump..."
+#   unset -f j
+#   [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+#   # Call nvm with original arguments
+#   j "$@"
+# }
 
 
 
