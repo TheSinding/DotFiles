@@ -1,0 +1,32 @@
+# CLI tools
+brew "bat"
+brew "dive"
+brew "fnm"
+brew "fzf"
+brew "gh"
+brew "glow"
+brew "helm"
+brew "lazygit"
+brew "lsd"
+brew "neovim"
+brew "pgcli"
+brew "prettyping"
+brew "ripgrep"
+brew "spaceship"
+brew "starship"
+brew "tmux"
+brew "yq"
+brew "zoxide"
+brew "zsh-syntax-highlighting"
+
+# GUI apps
+cask "ghostty"
+cask "linearmouse"
+cask "rectangle"
+cask "1password"
+cask "1password-cli"
+cask "alt-tab"
+cask "insomnia"
+
+# Fonts
+cask "font-zed-mono-nerd-font"

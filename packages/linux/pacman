@@ -1,0 +1,22 @@
+# Arch Linux packages (CLI tools — GUI apps go in flatpak)
+bat
+dive
+fnm
+fzf
+gh
+glow
+helm
+lazygit
+lsd
+neovim
+pgcli
+prettyping
+ripgrep
+spaceship
+starship
+tmux
+yq
+zoxide
+zsh-syntax-highlighting
+
+
