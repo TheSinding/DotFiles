@@ -24,13 +24,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- Move lines up/down in normal mode
-vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { desc = 'Move line down' })
-vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', { desc = 'Move line up' })
+vim.keymap.set('n', '<C-k>', ':m .-2<CR>==', { desc = 'Move line up' })
+vim.keymap.set('n', '<C-j>', ':m .+1<CR>==', { desc = 'Move line down' })
 
 -- Move lines up/down in visual mode
-vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
-vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' }) -- Pageup and pagedown with j and k
+vim.keymap.set('v', '<C-j>', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
+vim.keymap.set('v', '<C-k>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
 
+-- Pageup and pagedown with j and k
 vim.keymap.set('n', 'J', '<C-d>zz', { desc = 'Page down and center' })
 vim.keymap.set('n', 'K', '<C-u>zz', { desc = 'Page up and center' })
 vim.keymap.set('n', '<leader>J', 'J', { desc = 'Join lines' }) -- Move join to leader
