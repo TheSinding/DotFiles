@@ -104,7 +104,7 @@ alias am-tunnel-db='aws ssm start-session --target $(aws ssm describe-instance-i
 alias am-pgcli='pgcli $(aws secretsmanager get-secret-value --secret-id postgres-connection-string-base | jq -r ".SecretString | fromjson | .POSTGRESQL_CONNECTION_STRING" | sed "s/@.*/@localhost:5432/")'
 
 
-PATH="/opt/homebrew/opt/esphome/libexec/bin/:$PATH"
+PATH="$PATH"
 
 #if [ -d "$HOME/Library/Android/sdk" ]; then
 #  ANDROID_HOME="$HOME/Library/Android/sdk"
