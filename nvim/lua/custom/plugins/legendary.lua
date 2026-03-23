@@ -7,7 +7,7 @@ return {
   lazy = false,
   -- sqlite is only needed if you want to use frecency sorting
   dependencies = { 'kkharji/sqlite.lua' },
-  config = function()
-    vim.keymap.set('n', '<F1>', '<cmd>Legendary<cr>', { desc = 'Legendary: Find Commands/Keymaps/Etc' })
-  end,
+  -- config = function()
+  --   vim.keymap.set('n', '<F1>', '<cmd>Legendary<cr>', { desc = 'Legendary: Find Commands/Keymaps/Etc' })
+  -- end,
 }
