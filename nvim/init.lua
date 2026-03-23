@@ -199,6 +199,25 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Close LSP hover floating windows when entering cmdline (:).
+-- Without this, pressing : then <Esc> can land the cursor inside the hover float.
+-- Only targets hover windows (markdown filetype) to avoid closing pickers like Themery.
+vim.api.nvim_create_autocmd('CmdlineEnter', {
+  callback = function()
+    local hover_fts = { markdown = true, lsp_markdown = true }
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      local cfg = vim.api.nvim_win_get_config(win)
+      if cfg.relative ~= '' then
+        local buf = vim.api.nvim_win_get_buf(win)
+        local ft = vim.bo[buf].filetype
+        if hover_fts[ft] then
+          pcall(vim.api.nvim_win_close, win, false)
+        end
+      end
+    end
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -514,6 +533,19 @@ require('lazy').setup({
             mode = mode or 'n'
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
+
+          -- gh shows hover docs. If a hover window is already open, close it
+          -- instead of entering it (prevents auto-jump when triggered multiple times).
+          -- To intentionally enter the window, use <C-w>w.
+          vim.keymap.set('n', 'gh', function()
+            for _, win in ipairs(vim.api.nvim_list_wins()) do
+              if vim.api.nvim_win_get_config(win).relative ~= '' then
+                vim.api.nvim_win_close(win, true)
+                return
+              end
+            end
+            vim.lsp.buf.hover()
+          end, { buffer = event.buf, desc = 'LSP: Hover (close if open)' })
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
