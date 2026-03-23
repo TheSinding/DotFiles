@@ -19,7 +19,7 @@ export HISTSIZE=1000000000
 export SAVEHIST=$HISTSIZE
 export DOTFILES="$HOME/code/DotFiles"
 
-export COLORSCHEME="tokyonight"
+export COLORSCHEME="github-light"
 
 export BAT_THEME=$COLORSCHEME
 
