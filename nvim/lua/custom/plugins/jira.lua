@@ -6,6 +6,7 @@ return {
     'folke/snacks.nvim',
     'mrjones2014/op.nvim',
   },
+  lazy = true,
   config = function()
     local jiraTokenOPItemName = 'jira-token'
     local opApi = require 'op.api'
