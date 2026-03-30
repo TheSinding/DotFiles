@@ -19,18 +19,26 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- Smart H/L (NvME style): expr=true returns key strings so they compose with
 -- operators (dH, yL, etc.) and counts, and skip block-jump during macros.
 local function smart_H()
-  if vim.fn.reg_recording() ~= '' then return '^' end
+  if vim.fn.reg_recording() ~= '' then
+    return '^'
+  end
   local col = vim.fn.col '.'
   local first_nonblank = vim.fn.match(vim.fn.getline '.', [[\S]]) + 1
-  if col == first_nonblank or col == 1 then return '{' end
+  if col == first_nonblank or col == 1 then
+    return '{'
+  end
   return '^'
 end
 
 local function smart_L()
-  if vim.fn.reg_recording() ~= '' then return '$' end
+  if vim.fn.reg_recording() ~= '' then
+    return '$'
+  end
   local col = vim.fn.col '.'
   local line = vim.fn.getline '.'
-  if col >= #line then return '}' end
+  if col >= #line then
+    return '}'
+  end
   return '$'
 end
 

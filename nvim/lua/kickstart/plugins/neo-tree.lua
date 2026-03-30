@@ -8,21 +8,36 @@ return {
     'nvim-lua/plenary.nvim',
     'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
     'MunifTanjim/nui.nvim',
+    { 's1n7ax/nvim-window-picker', event = 'VeryLazy', opts = {
+      hint = 'floating-big-letter',
+    } },
   },
   lazy = false,
   keys = {
     { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
   },
   opts = {
+    buffers = {
+      follow_current_file = true,
+    },
     filesystem = {
+      follow_current_file = true,
       filtered_items = {
-        hide_hidden = false,
+        hide_dotfiles = false,
         hide_gitignored = false,
-      },
-      window = {
-        mappings = {
-          ['\\'] = 'close_window',
+        hide_by_name = {
+          'node_modules',
         },
+        never_show = {
+          '.DS_Store',
+          'thumbs.db',
+        },
+      },
+    },
+    window = {
+      position = 'right',
+      mappings = {
+        ['\\'] = 'close_window',
       },
     },
   },
