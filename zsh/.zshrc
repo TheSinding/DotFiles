@@ -27,6 +27,7 @@ alias python=python3
 alias grep='grep --color=auto'
 alias ls='lsd -la'
 alias eb="vim ~/.zshrc && echo 'Sourcing zsh file' && source ~/.zshrc"
+alias ed="vim $HOME/code/DotFiles/"
 alias en="vim ~/.config/nvim"
 alias sb='source ~/.zshrc'
 alias s='cd ..'
@@ -106,41 +107,8 @@ alias am-pgcli='pgcli $(aws secretsmanager get-secret-value --secret-id postgres
 
 PATH="$PATH"
 
-#if [ -d "$HOME/Library/Android/sdk" ]; then
-#  ANDROID_HOME="$HOME/Library/Android/sdk"
-#  PATH="$ANDROID_HOME/platform-tools:$PATH"
-#fi
-
-#if [ -d $ADB ]; then
-#    PATH="$ADB:$PATH"
-#fi
-
-#if [ -d $ANDROID_TOOLS ]; then
-#	PATH="$ANDROID_TOOLS:$PATH"
-#fi
-
-
 # This line is for removing the VIM Ctrl-S thing..
 stty -ixon
-
-#nvm() {
-#  echo "Loading nvm..."
-#  unset -f nvm
-#  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-#  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-#  # Call nvm with original arguments
-#  nvm "$@"
-#}
-
-# j() {
-#   echo "Loading autojump..."
-#   unset -f j
-#   [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
-#   # Call nvm with original arguments
-#   j "$@"
-# }
-
-
 
 # LEGO Specific
 export AWS_PROFILE=default
