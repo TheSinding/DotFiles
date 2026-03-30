@@ -1,12 +1,18 @@
 local actions = require 'telescope.actions'
 
-vim.keymap.set('n', '/', function()
-  require('telescope.builtin').current_buffer_fuzzy_find()
-end)
+-- vim.keymap.set('n', '/', function()
+--   require('telescope.builtin').current_buffer_fuzzy_find()
+-- end)
 
 vim.keymap.set('n', '<F1>', function()
   require('telescope.builtin').commands()
 end)
+
+vim.keymap.set('n', 'grv', function()
+  require('telescope.builtin').lsp_definitions {
+    jump_type = 'vsplit',
+  }
+end, { desc = '[G]oto Definition in [V]split (Telescope)' })
 
 require('telescope').setup {
   defaults = require('telescope.themes').get_ivy {
@@ -22,6 +28,12 @@ require('telescope').setup {
     },
   },
   pickers = {
+    find_files = {
+      hidden = true,
+    },
+    lsp_references = {
+      initial_mode = 'normal',
+    },
     buffers = {
       initial_mode = 'normal',
       mappings = {
