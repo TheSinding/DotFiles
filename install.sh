@@ -11,6 +11,12 @@ function printBold     { echo "${BOLD}$1${NORMAL}"; }
 
 function link {
 	printf "%-50s" "$3"
+    if [[ -z "$1" ]]; then 
+        printf "$1 folder exists - making backup"
+        mkdir $DOTFILES/backup 2&>1 /dev/null || true
+        cp -r $1 $DOTFILES/backup
+    fi
+
 	if ln -sf "$1" "$2" 2>/dev/null; then
 		printf " - ${BOLD}Done${NORMAL}\n"
 	else
@@ -54,6 +60,7 @@ TPM="$TMUX/tpm"
 
 [ -f "$HOME/.zshrc" ] && [ ! -f "$HOME/.zshrc.pre-dotfiles" ] && mv "$HOME/.zshrc" "$HOME/.zshrc.pre-dotfiles"
 
+link "$DOTFILES/fish"                     "$USER_CONFIG/fish"                    "Linking fish configs"
 link "$ZSH/.zshrc"                     "$HOME/.zshrc"                    "Linking .zshrc"
 link "$TMUXREPO/.tmux.conf"            "$HOME/.tmux.conf"                "Linking TMUX config"
 link "$TMUX/.tmux.conf.local"          "$HOME/.tmux.conf.local"          "Linking local TMUX config"
