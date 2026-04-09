@@ -6,9 +6,9 @@
 #export BAT_THEME="Nord"
 export SCRIPTS="$HOME/scripts"
 export CLONE_DIR="$HOME/clones"
-export LC_ALL=da_DK.UTF-8
-export LANG=da_DK.UTF-8
-export LANGUAGE=da_DK.UTF-8
+export LC_ALL=en_DK.UTF-8
+export LANG=en_DK.UTF-8
+export LANGUAGE=en_DK.UTF-8
 export EDITOR="vim"
 export GOPATH="$HOME/code/resources/Go"
 export LOCALBIN="$HOME/.local/bin"
