@@ -3,7 +3,7 @@ bat
 dive
 fnm
 fzf
-gh
+github-cli
 glow
 helm
 lazygit
@@ -12,11 +12,11 @@ neovim
 pgcli
 prettyping
 ripgrep
-spaceship
 starship
 tmux
 yq
 zoxide
 zsh-syntax-highlighting
-
-
+zsh
+ghostty
+steam
