@@ -16,6 +16,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
         buffer = bufnr,
         group = group,
         callback = function()
+          -- Only show hover in normal mode and when completion menu isn't open
+          local mode = vim.api.nvim_get_mode().mode
+          if mode ~= 'n' then
+            return
+          end
+          local ok, blink = pcall(require, 'blink.cmp')
+          if ok and blink.is_visible() then
+            return
+          end
           vim.lsp.buf.hover()
         end,
       })
