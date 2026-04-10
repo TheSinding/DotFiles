@@ -1,3 +1,4 @@
 .DS_Store
 starship/starship.toml
 ghostty/config
+.secrets
