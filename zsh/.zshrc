@@ -47,6 +47,11 @@ alias nvm="fnm"
 eval "$(fnm env --use-on-cd --shell zsh)"
 
 
+if [[ -f "$DOTFILES/zsh/.secrets" ]]; then
+    source $DOTFILES/zsh/.secrets
+fi
+
+
 setopt EXTENDED_HISTORY
 setopt autocd
 
@@ -118,3 +123,24 @@ export SAML2AWS_REGION=${AWS_DEFAULT_REGION}
 
 . "$HOME/.local/bin/env"
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# bun completions
+[ -s "/Users/dkSiFrSi/.bun/_bun" ] && source "/Users/dkSiFrSi/.bun/_bun"
+
+
+# Hide them token
+jira(){
+    echo "Authing jira";
+    unset -f jira
+    export JIRA_API_TOKEN=$(op items get jira-token --fields password --reveal)
+    jira "$@" 
+}
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/dkSiFrSi/.lmstudio/bin"
+# End of LM Studio CLI section
+
