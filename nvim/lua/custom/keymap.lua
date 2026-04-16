@@ -22,6 +22,7 @@ local function smart_H()
   if vim.fn.reg_recording() ~= '' then
     return '^'
   end
+
   local col = vim.fn.col '.'
   local first_nonblank = vim.fn.match(vim.fn.getline '.', [[\S]]) + 1
   if col == first_nonblank or col == 1 then

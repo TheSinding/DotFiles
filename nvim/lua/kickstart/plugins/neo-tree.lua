@@ -15,6 +15,7 @@ return {
   lazy = false,
   keys = {
     { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '<C-w>b', ':Neotree reveal<CR>', desc = 'NeoTree reveal' },
   },
   opts = {
     buffers = {

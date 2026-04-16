@@ -701,7 +701,14 @@ require('lazy').setup({
           --          },
         },
         graphql = { filetypes = { 'graphql' } },
-        prettier = {},
+        biome = {},
+        tsgo = {},
+        typos_lsp = {},
+        html = {},
+        jsonls = {},
+        ruff = {},
+        stylua = {},
+        zuban = {},
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
@@ -803,10 +810,10 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        typescript = { 'prettierd' },
-        typescriptreact = { 'prettierd' },
-        javascript = { 'prettierd' },
-        javascriptreact = { 'prettierd' },
+        typescript = { 'biome', 'biome-organize-imports' },
+        typescriptreact = { 'biome', 'biome-organize-imports' },
+        javascript = { 'biome', 'biome-organize-imports' },
+        javascriptreact = { 'biome', 'biome-organize-imports' },
       },
     },
   },
@@ -833,12 +840,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
         opts = {},
       },
@@ -981,6 +988,25 @@ require('lazy').setup({
       --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
+
+      require('mini.tabline').setup()
+
+      require('mini.pairs').setup()
+      require('mini.move').setup {
+        mappings = {
+          -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
+          left = '<C-S-h>',
+          right = '<C-S-l>',
+          down = '<C-S-j>',
+          up = '<C-S-k>',
+
+          -- Move current line in Normal mode
+          line_left = '<C-S-h>',
+          line_right = '<C-S-l>',
+          line_down = '<C-S-j>',
+          line_up = '<C-S-k>',
+        },
+      }
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
