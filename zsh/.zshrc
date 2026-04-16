@@ -39,6 +39,7 @@ alias vim="nvim"
 alias pingme="osascript -e 'display notification \"COMMAND DONE!\" with title \"PING PING MOTHERFUCKER\"'"
 alias gl='git pull'
 alias gp='git push'
+alias prn="gh pr new --reviewer Pripman,valerarusu7,@copilot  -f"
 alias gco="git checkout"
 alias ll="lazygit"
 
