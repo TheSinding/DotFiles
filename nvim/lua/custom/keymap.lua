@@ -16,6 +16,9 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Disable the macro stuff - Hate accidentailly opening the window
+vim.keymap.set('n', 'q', '<Nop>')
+
 -- Smart H/L (NvME style): expr=true returns key strings so they compose with
 -- operators (dH, yL, etc.) and counts, and skip block-jump during macros.
 local function smart_H()
