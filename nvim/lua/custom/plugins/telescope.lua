@@ -125,7 +125,10 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
 
     vim.keymap.set('n', '<F1>', function()
-      require('telescope.builtin').commands()
+      require('telescope.builtin').commands {
+        sort_mru = true,
+        prompt_position = 'top',
+      }
     end)
 
     vim.keymap.set('n', 'grv', function()

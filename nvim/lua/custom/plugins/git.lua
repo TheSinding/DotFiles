@@ -1,8 +1,7 @@
--- Adds git related signs to the gutter, as well as utilities for managing changes
--- NOTE: gitsigns is already included in init.lua but contains only the base
--- config. This will add also the recommended keymaps.
-
 return {
+  -- Gutter signs and hunk utilities
+  -- NOTE: gitsigns is also referenced in init.lua with a base config;
+  -- this extends it with keymaps.
   {
     'lewis6991/gitsigns.nvim',
     opts = {
@@ -57,15 +56,64 @@ return {
         map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
         map('n', '<leader>tD', gitsigns.preview_hunk_inline, { desc = '[T]oggle git show [D]eleted' })
       end,
-      current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+      current_line_blame = true,
       current_line_blame_opts = {
         virt_text = true,
-        virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
+        virt_text_pos = 'right_align',
         delay = 1,
         ignore_whitespace = false,
         virt_text_priority = 100,
         use_focus = true,
       },
     },
+  },
+
+  -- Lazygit via Snacks (sets up $NVIM socket so `e` opens file in existing nvim)
+  {
+    'folke/snacks.nvim',
+    opts = {
+      lazygit = { enabled = true },
+    },
+    keys = {
+      { '<leader>ll', function() Snacks.lazygit() end,          desc = 'Lazygit' },
+      { '<leader>lf', function() Snacks.lazygit.log_file() end, desc = 'Lazygit log (current file)' },
+      { '<leader>lg', function() Snacks.lazygit.log() end,      desc = 'Lazygit log (repo)' },
+    },
+  },
+
+  -- GitHub issue/PR pickers via Snacks
+  {
+    'folke/snacks.nvim',
+    opts = {
+      gh = {},
+      picker = {
+        sources = {
+          gh_issue = {},
+          gh_pr = {},
+        },
+      },
+    },
+    keys = {
+      { '<leader>gi', function() Snacks.picker.gh_issue() end,              desc = 'GitHub Issues (open)' },
+      { '<leader>gI', function() Snacks.picker.gh_issue { state = 'all' } end, desc = 'GitHub Issues (all)' },
+      { '<leader>gp', function() Snacks.picker.gh_pr() end,                 desc = 'GitHub Pull Requests (open)' },
+      { '<leader>gP', function() Snacks.picker.gh_pr { state = 'all' } end, desc = 'GitHub Pull Requests (all)' },
+    },
+  },
+
+  -- GitHub PR/issue workflow
+  {
+    'ldelossa/gh.nvim',
+    dependencies = {
+      {
+        'ldelossa/litee.nvim',
+        config = function()
+          require('litee.lib').setup()
+        end,
+      },
+    },
+    config = function()
+      require('litee.gh').setup()
+    end,
   },
 }
