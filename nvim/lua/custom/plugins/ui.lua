@@ -1,38 +1,38 @@
 return {
   -- -- Replaces cmdline, messages, and notifications with a polished UI
-  -- {
-  --   'folke/noice.nvim',
-  --   event = 'VeryLazy',
-  --   opts = {
-  --     routes = {
-  --       {
-  --         filter = {
-  --           event = 'notify',
-  --           find = 'No information available',
-  --         },
-  --         opts = { skip = true },
-  --       },
-  --     },
-  --     lsp = {
-  --       override = {
-  --         ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-  --         ['vim.lsp.util.stylize_markdown'] = true,
-  --         ['cmp.entry.get_documentation'] = true,
-  --       },
-  --     },
-  --     presets = {
-  --       bottom_search = true,
-  --       command_palette = true,
-  --       long_message_to_split = true,
-  --       inc_rename = false,
-  --       lsp_doc_border = false,
-  --     },
-  --   },
-  --   dependencies = {
-  --     'MunifTanjim/nui.nvim',
-  --     'rcarriga/nvim-notify',
-  --   },
-  -- },
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    opts = {
+      routes = {
+        {
+          filter = {
+            event = 'notify',
+            find = 'No information available',
+          },
+          opts = { skip = true },
+        },
+      },
+      lsp = {
+        override = {
+          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+          ['vim.lsp.util.stylize_markdown'] = true,
+          ['cmp.entry.get_documentation'] = true,
+        },
+      },
+      presets = {
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true,
+        inc_rename = false,
+        lsp_doc_border = false,
+      },
+    },
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
+    },
+  },
   --
   -- -- Startup dashboard
   -- {
@@ -95,6 +95,7 @@ return {
     lazy = false,
     config = function()
       require 'nvchad'
+      vim.keymap.set('n', '<leader>tg', require('nvchad.themes').open, { desc = 'Open themes picker' })
     end,
   },
   {

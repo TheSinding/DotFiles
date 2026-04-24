@@ -1,1 +1,0 @@
-return { 'raquentin/tamagotchi.nvim' }

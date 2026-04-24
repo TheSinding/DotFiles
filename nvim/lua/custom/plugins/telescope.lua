@@ -41,51 +41,67 @@ return { -- Fuzzy Finder (files, lsp, etc)
     { 'nvim-tree/nvim-web-devicons', opt = {} },
   },
   config = function()
-    -- Telescope is a fuzzy finder that comes with a lot of different things that
-    -- it can fuzzy find! It's more than just a "file finder", it can search
-    -- many different aspects of Neovim, your workspace, LSP, and more!
-    --
-    -- The easiest way to use Telescope, is to start by doing something like:
-    --  :Telescope help_tags
-    --
-    -- After running this command, a window will open up and you're able to
-    -- type in the prompt window. You'll see a list of `help_tags` options and
-    -- a corresponding preview of the help.
-    --
-    -- Two important keymaps to use while in Telescope are:
-    --  - Insert mode: <c-/>
-    --  - Normal mode: ?
-    --
-    -- This opens a window that shows you all of the keymaps for the current
-    -- Telescope picker. This is really useful to discover what Telescope can
-    -- do as well as how to actually do it!
+    local excluded_ft = { 'neo-tree', 'neo-tree-popup', 'notify' }
+    local excluded_bt = { 'terminal', 'quickfix' }
 
-    -- [[ Configure Telescope ]]
-    -- See `:help telescope` and `:help telescope.setup()`
+    local function pick_window_and_open(prompt_bufnr)
+      local action_state = require 'telescope.actions.state'
+      local entry = action_state.get_selected_entry()
+      if not entry then
+        return
+      end
+      actions.close(prompt_bufnr)
+      local filepath = entry.path or entry.filename
+      if not filepath then
+        return
+      end
+      local ok, wp = pcall(require, 'window-picker')
+      local picked_win = nil
+      if ok then
+        -- include_current_win=true mirrors neo-tree's effective behaviour: neo-tree's window is
+        -- excluded by filetype anyway, so all editing windows are pickable there. Passing true
+        -- here means the window that launched telescope is also a valid pick target, giving the
+        -- same window count. The pre-check avoids the picker's "no windows" warning.
+        local has_real_win = false
+        for _, w in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+          local buf = vim.api.nvim_win_get_buf(w)
+          if not vim.tbl_contains(excluded_ft, vim.bo[buf].filetype)
+            and not vim.tbl_contains(excluded_bt, vim.bo[buf].buftype) then
+            has_real_win = true
+            break
+          end
+        end
+        if has_real_win then
+          picked_win = wp.pick_window { filter_rules = { include_current_win = true } }
+        end
+      end
+      if picked_win then
+        vim.api.nvim_set_current_win(picked_win)
+      end
+      vim.cmd('edit ' .. vim.fn.fnameescape(filepath))
+    end
+
     require('telescope').setup {
-      -- You can put your default mappings / updates / etc. in here
-      --  All the info you're looking for is in `:help telescope.setup()`
-      --
-      -- defaults = {
-      --   mappings = {
-      --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-      --   },
-      -- },
       defaults = require('telescope.themes').get_ivy {
         mappings = {
           i = {
-            ['<S-k>'] = actions.preview_scrolling_up,
-            ['<S-j>'] = actions.preview_scrolling_down,
+            ['<C-S-k>'] = actions.preview_scrolling_up,
+            ['<C-S-j>'] = actions.preview_scrolling_down,
           },
           n = {
-            ['<S-k>'] = actions.preview_scrolling_up,
-            ['<S-j>'] = actions.preview_scrolling_down,
+            ['<C-S-k>'] = actions.preview_scrolling_up,
+            ['<C-S-j>'] = actions.preview_scrolling_down,
+            ['s'] = actions.file_vsplit,
           },
         },
       },
       pickers = {
         find_files = {
           hidden = true,
+          mappings = {
+            i = { ['<cr>'] = pick_window_and_open },
+            n = { ['<cr>'] = pick_window_and_open },
+          },
         },
         lsp_references = {
           initial_mode = 'normal',
@@ -94,8 +110,14 @@ return { -- Fuzzy Finder (files, lsp, etc)
           initial_mode = 'normal',
           sort_mru = true,
           mappings = {
-            i = { ['<C-d>'] = actions.delete_buffer },
-            n = { ['<C-d>'] = actions.delete_buffer },
+            i = {
+              ['<C-d>'] = actions.delete_buffer,
+              ['<cr>'] = pick_window_and_open,
+            },
+            n = {
+              ['<C-d>'] = actions.delete_buffer,
+              ['<cr>'] = pick_window_and_open,
+            },
           },
         },
       },

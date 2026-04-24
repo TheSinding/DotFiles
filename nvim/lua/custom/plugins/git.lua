@@ -73,11 +73,37 @@ return {
     'folke/snacks.nvim',
     opts = {
       lazygit = { enabled = true },
+      terminal = {},
     },
     keys = {
-      { '<leader>ll', function() Snacks.lazygit() end,          desc = 'Lazygit' },
-      { '<leader>lf', function() Snacks.lazygit.log_file() end, desc = 'Lazygit log (current file)' },
-      { '<leader>lg', function() Snacks.lazygit.log() end,      desc = 'Lazygit log (repo)' },
+      {
+        '<leader>ll',
+        function()
+          Snacks.lazygit()
+        end,
+        desc = 'Lazygit',
+      },
+      {
+        '<leader>lf',
+        function()
+          Snacks.lazygit.log_file()
+        end,
+        desc = 'Lazygit log (current file)',
+      },
+      {
+        '<leader>lg',
+        function()
+          Snacks.lazygit.log()
+        end,
+        desc = 'Lazygit log (repo)',
+      },
+      {
+        '<leader>tt',
+        function()
+          Snacks.terminal()
+        end,
+        desc = 'Toggle terminal',
+      },
     },
   },
 
@@ -94,10 +120,34 @@ return {
       },
     },
     keys = {
-      { '<leader>gi', function() Snacks.picker.gh_issue() end,              desc = 'GitHub Issues (open)' },
-      { '<leader>gI', function() Snacks.picker.gh_issue { state = 'all' } end, desc = 'GitHub Issues (all)' },
-      { '<leader>gp', function() Snacks.picker.gh_pr() end,                 desc = 'GitHub Pull Requests (open)' },
-      { '<leader>gP', function() Snacks.picker.gh_pr { state = 'all' } end, desc = 'GitHub Pull Requests (all)' },
+      {
+        '<leader>gi',
+        function()
+          Snacks.picker.gh_issue()
+        end,
+        desc = 'GitHub Issues (open)',
+      },
+      {
+        '<leader>gI',
+        function()
+          Snacks.picker.gh_issue { state = 'all' }
+        end,
+        desc = 'GitHub Issues (all)',
+      },
+      {
+        '<leader>gp',
+        function()
+          Snacks.picker.gh_pr()
+        end,
+        desc = 'GitHub Pull Requests (open)',
+      },
+      {
+        '<leader>gP',
+        function()
+          Snacks.picker.gh_pr { state = 'all' }
+        end,
+        desc = 'GitHub Pull Requests (all)',
+      },
     },
   },
 

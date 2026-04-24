@@ -32,23 +32,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
--- Move lines up/down in normal mode
--- vim.keymap.set('n', '<C-S-K>', ':m .-2<CR>==', { desc = 'Move line up' })
--- vim.keymap.set('n', '<C-S-J>', ':m .+1<CR>==', { desc = 'Move line down' })
---
--- -- Move lines up/down in visual mode
--- vim.keymap.set('v', '<C-S-J>', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
--- vim.keymap.set('v', '<C-S-K>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
-
--- Pageup and pagedown with j and k
-vim.keymap.set('n', 'J', '<C-d>zz', { desc = 'Page down and center' })
-vim.keymap.set('n', 'K', '<C-u>zz', { desc = 'Page up and center' })
-
-vim.keymap.set('v', 'J', '<C-d>zz', { desc = 'Page down and center' })
-vim.keymap.set('v', 'K', '<C-u>zz', { desc = 'Page up and center' })
-
-vim.keymap.set('n', '<leader>J', 'J', { desc = 'Join lines' }) -- Move join to leader
-vim.keymap.set('n', '<leader>K', vim.lsp.buf.hover, { desc = 'LSP hover' }) -- Move hover to leader
-
 vim.o.updatetime = 500 -- Show after 500ms of no movement
 return {}

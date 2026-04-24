@@ -9,6 +9,7 @@ return {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
       'MunifTanjim/nui.nvim',
+      { 's1n7ax/nvim-window-picker', version = '2.*' },
     },
     lazy = false,
     keys = {
@@ -20,6 +21,7 @@ return {
         follow_current_file = true,
       },
       filesystem = {
+        hijack_netrw_behavior = 'disabled',
         follow_current_file = true,
         filtered_items = {
           hide_dotfiles = false,

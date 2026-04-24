@@ -155,6 +155,8 @@ return {
         ruff = {},
         stylua = {},
         zuban = {},
+        gopls = {},
+        yamlls = {},
         lua_ls = {
           settings = {
             Lua = {
