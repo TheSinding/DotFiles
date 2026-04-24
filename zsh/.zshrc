@@ -60,6 +60,7 @@ autoload -U compinit; compinit
 
 # Function which cp's the correct starship config file based on the current color scheme
 function set_colorscheme() {
+    GHOSTTY_CONFIG="$DOTFILES/ghostty/config"
     ## Starship config
     if [[ -f "$DOTFILES/starship/starship-$COLORSCHEME.toml" ]]; then
         cp "$DOTFILES/starship/starship-$COLORSCHEME.toml" "$DOTFILES/starship/starship.toml"
@@ -67,9 +68,15 @@ function set_colorscheme() {
         echo "No starship config found for color scheme: $COLORSCHEME"
     fi
 
+    if [[ -f "$DOTFILES/ghostty/default" ]]; then
+        command cat "$DOTFILES/ghostty/default" > $GHOSTTY_CONFIG
+    else
+        command echo -n "" > $GHOSTTY_CONFIG
+    fi
+
     ## Ghostty config
     if [[ -f "$DOTFILES/ghostty/config-$COLORSCHEME" ]]; then
-        cp "$DOTFILES/ghostty/config-$COLORSCHEME" "$DOTFILES/ghostty/config"
+        command cat "$DOTFILES/ghostty/config-$COLORSCHEME" >> "$DOTFILES/ghostty/config"
     else
         echo "No ghostty config found for color scheme: $COLORSCHEME"
     fi
@@ -109,6 +116,7 @@ alias am-signin-aws-prod='saml2aws login -a am-prod --skip-prompt --force --mfa-
 alias am-tunnel-db='aws ssm start-session --target $(aws ssm describe-instance-information | jq -r ".InstanceInformationList.[0].InstanceId") --region eu-west-1  --document-name "AWS-StartPortForwardingSessionToRemoteHost" --parameters host=$(aws rds describe-db-clusters | jq ".DBClusters.[0].Endpoint"),portNumber="5432",localPortNumber="5432"'
 
 alias am-pgcli='pgcli $(aws secretsmanager get-secret-value --secret-id postgres-connection-string-base | jq -r ".SecretString | fromjson | .POSTGRESQL_CONNECTION_STRING" | sed "s/@.*/@localhost:5432/")'
+alias am-pglazy='lazypg $(aws secretsmanager get-secret-value --secret-id postgres-connection-string-base | jq -r ".SecretString | fromjson | .POSTGRESQL_CONNECTION_STRING" | sed "s/@.*/@localhost:5432/")'
 
 
 PATH="$PATH"

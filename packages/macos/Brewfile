@@ -30,3 +30,4 @@ cask "insomnia"
 
 # Fonts
 cask "font-zed-mono-nerd-font"
+cask "font-ioskeley-mono"
