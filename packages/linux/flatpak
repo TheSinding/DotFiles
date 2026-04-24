@@ -1,5 +1,2 @@
 # Flatpak packages (GUI apps from Flathub)
 # Uses full app IDs: org.example.App
-
-com.onepassword.OnePassword
-rest.insomnia.Insomnia

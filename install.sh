@@ -17,7 +17,7 @@ function link {
         cp -r $1 $DOTFILES/backup
     fi
 
-	if ln -sf "$1" "$2" 2>/dev/null; then
+	if ln -s "$1" "$2" 2>/dev/null; then
 		printf " - ${BOLD}Done${NORMAL}\n"
 	else
 		printf " - ${BOLD}Link exists${NORMAL}\n"
@@ -51,6 +51,11 @@ cp "$DOTFILES/ghostty/config-gruvbox-dark" "$DOTFILES/ghostty/config" 2>/dev/nul
 
 ### Symlinks ###
 
+
+### Important! Linking folders should be linked like fish or nvim below
+### If linking like {SOURCE}/folder to {TARGET}/folder, it will try
+### to create the link in side of the path of {TARGET}/folder
+
 printHeadline "Linking stuff!"
 
 ZSH="$DOTFILES/zsh"
@@ -60,11 +65,11 @@ TPM="$TMUX/tpm"
 
 [ -f "$HOME/.zshrc" ] && [ ! -f "$HOME/.zshrc.pre-dotfiles" ] && mv "$HOME/.zshrc" "$HOME/.zshrc.pre-dotfiles"
 
-link "$DOTFILES/fish"                     "$USER_CONFIG/fish"                    "Linking fish configs"
+link "$DOTFILES/fish"                     "$USER_CONFIG"                    "Linking fish configs"
 link "$ZSH/.zshrc"                     "$HOME/.zshrc"                    "Linking .zshrc"
 link "$TMUXREPO/.tmux.conf"            "$HOME/.tmux.conf"                "Linking TMUX config"
 link "$TMUX/.tmux.conf.local"          "$HOME/.tmux.conf.local"          "Linking local TMUX config"
-link "$DOTFILES/nvim"                  "$USER_CONFIG/nvim"               "Linking NVIM config"
+link "$DOTFILES/nvim"                  "$USER_CONFIG"               "Linking NVIM config"
 link "$DOTFILES/starship/starship.toml" "$USER_CONFIG/starship.toml"     "Linking Starship config"
 
 mkdir -p "$HOME/.tmux/plugins/tpm"
