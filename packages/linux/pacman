@@ -3,7 +3,7 @@ bat
 dive
 fnm
 fzf
-gh
+github-cli
 glow
 helm
 lazygit
@@ -12,7 +12,6 @@ neovim
 pgcli
 prettyping
 ripgrep
-spaceship
 starship
 tmux
 yq
@@ -24,3 +23,6 @@ ttf-ioskeley-mono
 
 
 
+zsh
+ghostty
+steam
