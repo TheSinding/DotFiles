@@ -92,10 +92,10 @@ function installFromFile {
 }
 
 ### If arch, but no aur, then install Paru
-if [ "$packmgr" = 'pacman' ]; then {
+if [ "$packmgr" = 'pacman' ]; then
     installPackages "$packmgr" "paru"
     set packmgr = "paru"
-}
+fi
 
 
 ### If faillock exists, then set it to 0, fuck that
