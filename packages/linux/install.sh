@@ -105,7 +105,7 @@ FAILLOCK_FILE="/etc/security/faillock.conf"
 if [ -f "$FAILLOCK_FILE" ]; then
     echo "Faillock exists, backing up to $BACKUP_FOLDER/faillock.backup.conf"
     cp "$FAILLOCK_FILE" "faillock.backup.conf"
-    sed 's/#.*deny.*=.*/deny = 0/g' -i "$FAILLOCK_FAIL";
+    sudo sed 's/#.*deny.*=.*/deny = 0/g' -i "$FAILLOCK_FAIL";
 fi
 
 ### Pacman: enable colors ###
