@@ -33,6 +33,11 @@ return {
       'rcarriga/nvim-notify',
     },
   },
+
+  { 'rcarriga/nvim-notify', opts = {
+    top_down = false,
+    render = 'compact',
+  } },
   --
   -- -- Startup dashboard
   -- {
