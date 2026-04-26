@@ -8,9 +8,9 @@
 packmgr='unknown'
 
 if [ -f /etc/arch-release ]; then
-	if command -v yay >/dev/null 2>&1; then
-		printBold "Arch Linux + AUR (yay) detected"
-		packmgr='yay'
+	if command -v paru >/dev/null 2>&1; then
+		printBold "Arch Linux + AUR (paru) detected"
+		packmgr='paru'
 	else
 		printBold "Arch Linux (pacman) detected"
 		packmgr='pacman'
@@ -26,7 +26,7 @@ elif [ -f /etc/SUSE-brand ] || [ -f /etc/opensuse-release ]; then
 	packmgr='zypper'
 else
 	# Fallback: command -v detection
-	command -v yay     >/dev/null 2>&1 && packmgr='yay'
+	command -v paru     >/dev/null 2>&1 && packmgr='paru'
 	command -v pacman  >/dev/null 2>&1 && [ "$packmgr" = 'unknown' ] && packmgr='pacman'
 	command -v apt-get >/dev/null 2>&1 && [ "$packmgr" = 'unknown' ] && packmgr='apt'
 	command -v zypper  >/dev/null 2>&1 && [ "$packmgr" = 'unknown' ] && packmgr='zypper'
@@ -42,7 +42,7 @@ fi
 
 function syncPackageManager {
 	case $1 in
-		yay)     yay -Sy ;;
+		paru)     paru -Sy ;;
 		pacman)  sudo pacman -Sy ;;
 		apt)     sudo apt-get update ;;
 		zypper)  sudo zypper refresh ;;
@@ -55,7 +55,7 @@ function installPackages {
 	local mgr=$1; shift
 	local packages=("$@")
 	case $mgr in
-		yay)     yay -S --needed "${packages[@]}" ;;
+		paru)     paru -S --needed "${packages[@]}" ;;
 		pacman)  sudo pacman -S --needed "${packages[@]}" ;;
 		apt)     sudo apt-get install -y "${packages[@]}" ;;
 		zypper)  sudo zypper in "${packages[@]}" ;;
@@ -91,9 +91,23 @@ function installFromFile {
 	installPackages "$mgr" "${packages[@]}"
 }
 
+### If arch, but no aur, then install Paru
+if [ "$packmgr" = 'pacman' ]; then {
+    installPackages "$packmgr" "paru"
+    set packmgr = "paru"
+}
+
+
+### If faillock exists, then set it to 0, fuck that
+FAILLOCK_FILE="/etc/security/faillock.conf"
+if [ -f "$FAILLOCK_FILE" ]; then
+    cp "$FAILLOCK_FILE" "$FAILLOCK_FILE.backup"
+    sed 's/#.*deny.*=.*/deny = 0/g' -i "$FAILLOCK_FAIL";
+fi
+
 ### Pacman: enable colors ###
 
-if [ "$packmgr" = 'pacman' ] || [ "$packmgr" = 'yay' ]; then
+if [ "$packmgr" = 'pacman' ] || [ "$packmgr" = 'paru' ]; then
 	PACMAN_CONFIG="/etc/pacman.conf"
 	if [ -f "$PACMAN_CONFIG" ] && grep -Fq "#Color" "$PACMAN_CONFIG"; then
 		printBold "Enabling colors in pacman"
