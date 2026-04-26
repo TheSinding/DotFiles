@@ -5,6 +5,8 @@
 ### Detect package manager ###
 # Check release files first (more reliable than command -v)
 
+BACKUP_FOLDER="$PWD/.backups"
+
 packmgr='unknown'
 
 if [ -f /etc/arch-release ]; then
@@ -101,7 +103,8 @@ fi
 ### If faillock exists, then set it to 0, fuck that
 FAILLOCK_FILE="/etc/security/faillock.conf"
 if [ -f "$FAILLOCK_FILE" ]; then
-    cp "$FAILLOCK_FILE" "$FAILLOCK_FILE.backup"
+    echo "Faillock exists, backing up to $BACKUP_FOLDER/faillock.backup.conf"
+    cp "$FAILLOCK_FILE" "faillock.backup.conf"
     sed 's/#.*deny.*=.*/deny = 0/g' -i "$FAILLOCK_FAIL";
 fi
 
