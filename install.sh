@@ -70,6 +70,7 @@ link "$ZSH/.zshrc"                     "$HOME/.zshrc"                    "Linkin
 link "$TMUXREPO/.tmux.conf"            "$HOME/.tmux.conf"                "Linking TMUX config"
 link "$TMUX/.tmux.conf.local"          "$HOME/.tmux.conf.local"          "Linking local TMUX config"
 link "$DOTFILES/nvim"                  "$USER_CONFIG"               "Linking NVIM config"
+link "$DOTFILES/task"                  "$USER_CONFIG"               "Linking Taskwarrior config"
 link "$DOTFILES/starship/starship.toml" "$USER_CONFIG/starship.toml"     "Linking Starship config"
 
 mkdir -p "$HOME/.tmux/plugins/tpm"

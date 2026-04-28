@@ -112,4 +112,18 @@ return {
       require('dbee').setup(--[[optional config]])
     end,
   },
+  {
+    'ribelo/taskwarrior.nvim',
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+  },
+  {
+    'DerTimonius/twkb.nvim',
+    config = function()
+      require('twkb').setup()
+    end,
+  },
 }

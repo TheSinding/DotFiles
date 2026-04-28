@@ -119,7 +119,7 @@ alias am-pgcli='pgcli $(aws secretsmanager get-secret-value --secret-id postgres
 alias am-pglazy='lazypg $(aws secretsmanager get-secret-value --secret-id postgres-connection-string-base | jq -r ".SecretString | fromjson | .POSTGRESQL_CONNECTION_STRING" | sed "s/@.*/@localhost:5432/")'
 
 
-PATH="$PATH"
+PATH="$PATH:$GOPATH/bin"
 
 # This line is for removing the VIM Ctrl-S thing..
 stty -ixon
