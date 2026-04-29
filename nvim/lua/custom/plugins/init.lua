@@ -3,6 +3,11 @@
 --
 -- See the kickstart.nvim README for more information
 
+vim.api.nvim_create_user_command('CurrentBufferPath', function()
+  local path = vim.fn.expand '%'
+  vim.notify(path, vim.log.levels.INFO)
+end, {})
+
 -- Handle LSP hover on CursorHold
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)

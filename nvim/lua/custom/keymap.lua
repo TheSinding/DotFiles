@@ -16,12 +16,12 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- Pageup and pagedown with j and k
-vim.keymap.set('n', 'J', '<C-d>zz', { desc = 'Page down and center' })
-vim.keymap.set('n', 'K', '<C-u>zz', { desc = 'Page up and center' })
-
-vim.keymap.set('v', 'J', '<C-d>zz', { desc = 'Page down and center' })
-vim.keymap.set('v', 'K', '<C-u>zz', { desc = 'Page up and center' })
+-- Pageup and pagedown with j and k, practice <c-d> and <c-u> instead
+-- vim.keymap.set('n', 'J', '<C-d>zz', { desc = 'Page down and center' })
+-- vim.keymap.set('n', 'K', '<C-u>zz', { desc = 'Page up and center' })
+--
+-- vim.keymap.set('v', 'J', '<C-d>zz', { desc = 'Page down and center' })
+-- vim.keymap.set('v', 'K', '<C-u>zz', { desc = 'Page up and center' })
 
 vim.keymap.set('n', '<leader>J', 'J', { desc = 'Join lines' }) -- Move join to leader
 vim.keymap.set('n', '<leader>K', vim.lsp.buf.hover, { desc = 'LSP hover' }) -- Move hover to leader
