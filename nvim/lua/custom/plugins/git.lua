@@ -74,6 +74,7 @@ return {
     opts = {
       lazygit = { enabled = true },
       terminal = {},
+      images = {},
     },
     keys = {
       {
