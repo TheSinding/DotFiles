@@ -65,12 +65,13 @@ TPM="$TMUX/tpm"
 
 [ -f "$HOME/.zshrc" ] && [ ! -f "$HOME/.zshrc.pre-dotfiles" ] && mv "$HOME/.zshrc" "$HOME/.zshrc.pre-dotfiles"
 
-link "$DOTFILES/fish"                     "$USER_CONFIG"                    "Linking fish configs"
+link "$DOTFILES/fish"                     "$USER_CONFIG"                 "Linking fish configs"
 link "$ZSH/.zshrc"                     "$HOME/.zshrc"                    "Linking .zshrc"
 link "$TMUXREPO/.tmux.conf"            "$HOME/.tmux.conf"                "Linking TMUX config"
 link "$TMUX/.tmux.conf.local"          "$HOME/.tmux.conf.local"          "Linking local TMUX config"
-link "$DOTFILES/nvim"                  "$USER_CONFIG"               "Linking NVIM config"
-link "$DOTFILES/task"                  "$USER_CONFIG"               "Linking Taskwarrior config"
+link "$DOTFILES/nvim"                  "$USER_CONFIG"                    "Linking NVIM config"
+link "$DOTFILES/task"                  "$USER_CONFIG"                    "Linking Taskwarrior config"
+link "$DOTFILES/k9s"                  "$USER_CONFIG"                     "Linking k9s config"
 link "$DOTFILES/starship/starship.toml" "$USER_CONFIG/starship.toml"     "Linking Starship config"
 
 mkdir -p "$HOME/.tmux/plugins/tpm"
