@@ -8,34 +8,54 @@ vim.api.nvim_create_user_command('CurrentBufferPath', function()
   vim.notify(path, vim.log.levels.INFO)
 end, {})
 
--- Handle LSP hover on CursorHold
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(args)
-    local bufnr = args.buf
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-    if client and client.server_capabilities.hoverProvider then
-      local group = vim.api.nvim_create_augroup('lsp_hover_' .. bufnr, { clear = true })
-
-      vim.api.nvim_create_autocmd('CursorHold', {
-        buffer = bufnr,
-        group = group,
-        callback = function()
-          -- Only show hover in normal mode and when completion menu isn't open
-          local mode = vim.api.nvim_get_mode().mode
-          if mode ~= 'n' then
-            return
-          end
-          local ok, blink = pcall(require, 'blink.cmp')
-          if ok and blink.is_visible() then
-            return
-          end
-          vim.lsp.buf.hover()
-        end,
-      })
-    end
-  end,
-})
-
-vim.o.updatetime = 500 -- Show after 500ms of no movement
+-- -- Handle LSP hover on CursorHold
+-- vim.api.nvim_create_autocmd('LspAttach', {
+--   callback = function(args)
+--     local bufnr = args.buf
+--     local client = vim.lsp.get_client_by_id(args.data.client_id)
+--
+--     if client and client.server_capabilities.hoverProvider then
+--       local group = vim.api.nvim_create_augroup('lsp_hover_' .. bufnr, { clear = true })
+--
+--       vim.api.nvim_create_autocmd('CursorHold', {
+--         buffer = bufnr,
+--         group = group,
+--         callback = function()
+--           -- Only show hover in normal mode and when completion menu isn't open
+--           local mode = vim.api.nvim_get_mode().mode
+--           if mode ~= 'n' then
+--             return
+--           end
+--           local ok, blink = pcall(require, 'blink.cmp')
+--           if ok and blink.is_visible() then
+--             return
+--           end
+--           -- Don't show if a floating window is already open
+--           for _, win in ipairs(vim.api.nvim_list_wins()) do
+--             if vim.api.nvim_win_get_config(win).relative ~= '' then
+--               return
+--             end
+--           end
+--           vim.lsp.buf.hover { focusable = false }
+--         end,
+--       })
+--
+--       -- Close hover float when cursor moves (prevents stale hovers)
+--       vim.api.nvim_create_autocmd('CursorMoved', {
+--         buffer = bufnr,
+--         group = group,
+--         callback = function()
+--           for _, win in ipairs(vim.api.nvim_list_wins()) do
+--             local cfg = vim.api.nvim_win_get_config(win)
+--             if cfg.relative ~= '' and not cfg.focusable then
+--               pcall(vim.api.nvim_win_close, win, false)
+--             end
+--           end
+--         end,
+--       })
+--     end
+--   end,
+-- })
+--
+-- vim.o.updatetime = 500 -- Show after 500ms of no movement
 return {}

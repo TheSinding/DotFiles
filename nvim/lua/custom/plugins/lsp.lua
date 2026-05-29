@@ -1,4 +1,8 @@
 return {
+  -- Helm support: filetype detection, treesitter highlighting, block navigation
+  { 'qvalentin/helm-ls.nvim', ft = 'helm', opts = {} },
+  { 'towolf/vim-helm', ft = 'helm', opts = {} },
+
   -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
   -- used for completion, annotations and signatures of Neovim apis
   {
@@ -11,7 +15,23 @@ return {
       },
     },
   },
-
+  {
+    'soulis-1256/eagle.nvim',
+    opts = {
+      keyboard_mode = true,
+    },
+    keys = {
+      {
+        '<Tab>',
+        ':EagleWin<CR>',
+        desc = 'Open documentation',
+      },
+    },
+    config = function(_, opts)
+      require('eagle').setup(opts)
+      --     vim.o.mousemoveevent = true -- Required for mouse mode
+    end,
+  },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -145,7 +165,17 @@ return {
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       local servers = {
-        eslint = {},
+        eslint = {
+          on_attach = function(client, bufnr)
+            -- Detach eslint from buffers where biome is available
+            local biome_root = vim.fs.root(bufnr, { 'biome.json', 'biome.jsonc' })
+            if biome_root then
+              vim.schedule(function()
+                vim.lsp.buf_detach_client(bufnr, client.id)
+              end)
+            end
+          end,
+        },
         graphql = { filetypes = { 'graphql' } },
         biome = {},
         tsgo = {},
@@ -157,6 +187,16 @@ return {
         zuban = {},
         gopls = {},
         yamlls = {},
+        helm_ls = {
+          settings = {
+            ['helm-ls'] = {
+              yamlls = {
+                enabled = true,
+                path = 'yaml-language-server',
+              },
+            },
+          },
+        },
         lua_ls = {
           settings = {
             Lua = {
@@ -191,6 +231,36 @@ return {
   -- Translate cryptic TypeScript error messages into human-readable ones
   { 'dmmulroy/ts-error-translator.nvim' },
 
+  { -- Highlight, edit, and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    build = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter').install {
+        'typescript',
+        'tsx',
+        'helm',
+        'gotmpl',
+        'javascript',
+        'html',
+        'css',
+        'bash',
+        'regex',
+        'yaml',
+        'json',
+        'lua',
+        'luadoc',
+        'diff',
+        'vim',
+        'vimdoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'python',
+        'graphql',
+      }
+    end,
+  },
   -- LSP support for embedded languages (e.g. code blocks inside markdown/quarto)
   {
     'jmbuhr/otter.nvim',

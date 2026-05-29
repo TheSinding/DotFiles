@@ -2,7 +2,7 @@
 -- General keymaps not tied to any specific plugin.
 
 -- Clear search highlights
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear search highlights' })
 
 -- Open diagnostic quickfix list
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -26,7 +26,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<leader>J', 'J', { desc = 'Join lines' }) -- Move join to leader
 vim.keymap.set('n', '<leader>K', vim.lsp.buf.hover, { desc = 'LSP hover' }) -- Move hover to leader
 
--- Disable the macro stuff - Hate accidentailly opening the window
+-- Disable the macro stuff - Hate accidentally opening the window
 vim.keymap.set('n', 'q', '<Nop>')
 
 -- Smart H/L (NvME style): expr=true returns key strings so they compose with

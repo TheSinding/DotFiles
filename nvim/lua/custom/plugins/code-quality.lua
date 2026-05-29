@@ -26,12 +26,19 @@ return {
           }
         end
       end,
+      formatters = {
+        prettier = {
+          condition = function(self, ctx)
+            return not vim.fs.root(ctx.buf, { 'biome.json', 'biome.jsonc' })
+          end,
+        },
+      },
       formatters_by_ft = {
         lua = { 'stylua' },
-        typescript = { 'biome', 'biome-organize-imports' },
-        typescriptreact = { 'biome', 'biome-organize-imports' },
-        javascript = { 'biome', 'biome-organize-imports' },
-        javascriptreact = { 'biome', 'biome-organize-imports' },
+        typescript = { 'biome', 'biome-organize-imports', 'prettier' },
+        typescriptreact = { 'biome', 'biome-organize-imports', 'prettier' },
+        javascript = { 'biome', 'biome-organize-imports', 'prettier' },
+        javascriptreact = { 'biome', 'biome-organize-imports', 'prettier' },
       },
     },
   },
