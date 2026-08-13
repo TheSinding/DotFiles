@@ -52,6 +52,14 @@ return {
         markdown = { 'markdownlint' },
       }
 
+      -- Point markdownlint at the global config in $HOME.
+      -- markdownlint-cli does not auto-discover ~/.markdownlint.yaml,
+      -- and nvim-lint pipes via --stdin (no file path to walk up from),
+      -- so pass --config explicitly.
+      local markdownlint = lint.linters.markdownlint
+      table.insert(markdownlint.args, '--config')
+      table.insert(markdownlint.args, vim.fn.expand '~/.markdownlint.yaml')
+
       local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
       vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
         group = lint_augroup,

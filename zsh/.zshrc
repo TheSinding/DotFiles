@@ -9,7 +9,7 @@ export CLONE_DIR="$HOME/clones"
 export LC_ALL=en_DK.UTF-8
 export LANG=en_DK.UTF-8
 export LANGUAGE=en_DK.UTF-8
-export EDITOR="vim"
+export EDITOR="nvim"
 export GOPATH="$HOME/code/resources/Go"
 export LOCALBIN="$HOME/.local/bin"
 export ADB="$ANDROID_HOME/platform-tools"
@@ -19,7 +19,7 @@ export HISTSIZE=1000000000
 export SAVEHIST=$HISTSIZE
 export DOTFILES="$HOME/code/DotFiles"
 
-export COLORSCHEME="github-light"
+export COLORSCHEME="github-dark"
 
 export BAT_THEME=$COLORSCHEME
 
@@ -110,9 +110,9 @@ mkcd(){
 
 # LEGO
 
-alias am-signin-aws-dev='saml2aws login -a am-dev --skip-prompt --force --mfa-token $(op item get --otp goj53afetg27ald242bsm5yse4)'
-alias am-signin-aws-qa='saml2aws login -a am-qa --skip-prompt --force --mfa-token $(op item get --otp goj53afetg27ald242bsm5yse4)'
-alias am-signin-aws-prod='saml2aws login -a am-prod --skip-prompt --force --mfa-token $(op item get --otp goj53afetg27ald242bsm5yse4)'
+alias am-signin-aws-dev='saml2aws login -a am-dev --skip-prompt --force --mfa-token $(op item get --otp goj53afetg27ald242bsm5yse4) && aws eks update-kubeconfig --name am-cluster-dev'
+alias am-signin-aws-qa='saml2aws login -a am-qa --skip-prompt --force --mfa-token $(op item get --otp goj53afetg27ald242bsm5yse4) && aws eks update-kubeconfig --name am-cluster-qa'
+alias am-signin-aws-prod='saml2aws login -a am-prod --skip-prompt --force --mfa-token $(op item get --otp goj53afetg27ald242bsm5yse4) && aws eks update-kubeconfig --name am-cluster-prod'
 
 alias am-tunnel-db='aws ssm start-session --target $(aws ssm describe-instance-information | jq -r ".InstanceInformationList.[0].InstanceId") --region eu-west-1  --document-name "AWS-StartPortForwardingSessionToRemoteHost" --parameters host=$(aws rds describe-db-clusters | jq ".DBClusters.[0].Endpoint"),portNumber="5432",localPortNumber="5432"'
 
@@ -138,13 +138,22 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 [ -s "/Users/dkSiFrSi/.bun/_bun" ] && source "/Users/dkSiFrSi/.bun/_bun"
 
 
-# Hide them token
-jira(){
-    echo "Authing jira";
-    unset -f jira
-    export JIRA_API_TOKEN=$(op items get jira-token --fields password --reveal)
-    jira "$@" 
-}
+# Load the Atlassian API token from 1Password into env (Jira + Confluence share it).
+# Used by the `jira` CLI and by the pi MCP adapter (confluence/jira servers read these env vars).
+#atlassian-auth(){
+#    local token
+#    token=$(op items get jira-token --fields password --reveal) || return 1
+#    export JIRA_API_TOKEN="$token"
+#    export CONFLUENCE_API_TOKEN="$token"
+#}
+#
+## Hide them token
+#jira(){
+#    echo "Authing jira";
+#    unset -f jira
+#    atlassian-auth
+#    jira "$@" 
+#}
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -154,3 +163,11 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$PATH:/Users/dkSiFrSi/.lmstudio/bin"
 # End of LM Studio CLI section
 
+
+# pnpm
+export PNPM_HOME="/Users/dkSiFrSi/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end

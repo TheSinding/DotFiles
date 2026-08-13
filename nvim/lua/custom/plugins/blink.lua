@@ -133,7 +133,9 @@ return { -- Autocompletion
     -- See :h blink-cmp-config-fuzzy for more information
     fuzzy = { implementation = 'lua' },
 
-    -- Shows a signature help window while you type arguments for a function
-    signature = { enabled = true },
+    -- Signature help window: available on demand via <C-k>, but don't
+    -- auto-pop it open while typing arguments (was jumping into view
+    -- on every keystroke inside a call's parens).
+    signature = { enabled = true, trigger = { enabled = false } },
   },
 }

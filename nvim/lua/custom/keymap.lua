@@ -58,3 +58,7 @@ end
 
 vim.keymap.set({ 'n', 'v' }, 'H', smart_H, { expr = true, desc = 'Smart H (^ or {)' })
 vim.keymap.set({ 'n', 'v' }, 'L', smart_L, { expr = true, desc = 'Smart L ($ or })' })
+
+-- <Tab> is bound to EagleWin (LSP docs). Ghostty's kitty keyboard protocol lets
+-- Neovim distinguish <Tab> from <C-i>, so explicitly restore jump-forward here.
+vim.keymap.set('n', '<C-i>', '<C-i>', { noremap = true, desc = 'Jump forward in jumplist' })

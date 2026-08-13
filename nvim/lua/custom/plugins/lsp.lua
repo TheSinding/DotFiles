@@ -19,6 +19,10 @@ return {
     'soulis-1256/eagle.nvim',
     opts = {
       keyboard_mode = true,
+      -- mouse_mode defaults to true and runs a 50ms timer that focuses the
+      -- eagle window whenever the (even stationary) mouse pointer overlaps
+      -- it — this yanked the cursor into the docs panel while typing.
+      mouse_mode = false,
     },
     keys = {
       {

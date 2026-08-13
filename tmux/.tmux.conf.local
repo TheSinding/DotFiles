@@ -312,41 +312,41 @@ set -g history-limit 10000
 setw -g mode-keys vi
 set -g mouse on
 setw -g monitor-activity on
-
-bind -n C-t split-window -h 
-bind -n M-t split-window -v
-bind-key J resize-pane -D 5
-bind-key K resize-pane -U 5
-bind-key H resize-pane -L 5
-bind-key L resize-pane -R 5
-
-bind-key M-j resize-pane -D
-bind-key M-k resize-pane -U
-bind-key M-h resize-pane -L
-bind-key M-l resize-pane -R
-
-# Vim style pane selection
-bind h select-pane -L
-bind j select-pane -D 
-bind k select-pane -U
-bind l select-pane -R
-
-# Use Alt-vim keys without prefix key to switch panes
-bind -n M-j select-pane -L
-bind -n M-k select-pane -D 
-bind -n M-l select-pane -U
-bind -n M-æ select-pane -R
-
-# Use Alt-arrow keys without prefix key to switch panes
-bind -n M-Left select-pane -L
-bind -n M-Right select-pane -R
-bind -n M-Up select-pane -U
-bind -n M-Down select-pane -D
-
-# Shift arrow to switch windows
-bind -n S-Left  previous-window
-bind -n S-Right next-window
-
+#
+#bind -n C-t split-window -h 
+#bind -n M-t split-window -v
+#bind-key J resize-pane -D 5
+#bind-key K resize-pane -U 5
+#bind-key H resize-pane -L 5
+#bind-key L resize-pane -R 5
+#
+#bind-key M-j resize-pane -D
+#bind-key M-k resize-pane -U
+#bind-key M-h resize-pane -L
+#bind-key M-l resize-pane -R
+#
+## Vim style pane selection
+#bind h select-pane -L
+#bind j select-pane -D 
+#bind k select-pane -U
+#bind l select-pane -R
+#
+## Use Alt-vim keys without prefix key to switch panes
+#bind -n M-j select-pane -L
+#bind -n M-k select-pane -D 
+#bind -n M-l select-pane -U
+#bind -n M-æ select-pane -R
+#
+## Use Alt-arrow keys without prefix key to switch panes
+#bind -n M-Left select-pane -L
+#bind -n M-Right select-pane -R
+#bind -n M-Up select-pane -U
+#bind -n M-Down select-pane -D
+#
+## Shift arrow to switch windows
+#bind -n S-Left  previous-window
+#bind -n S-Right next-window
+#
 # No delay for escape key press
 set -sg escape-time 0
 
@@ -362,28 +362,28 @@ set -g @plugin 'Morantron/tmux-fingers'
 
 # TheSinding Mods
 
-bind -n C-l choose-session 
-
-unbind C-b
-set -g prefix M-q
-bind M-q send-prefix
-
-## Resizing windows
-bind -n M-S-left resize-pane -L 2
-bind -n M-S-right resize-pane -R 2
-bind -n M-S-up resize-pane -U 2
-bind -n M-S-down resize-pane -D 2
-
-## Creating and deleting tab
-
-bind -n M-w kill-window
-bind -n C-n new-window
-
-## Creating and deleting sessions
-bind -n M-n new-session
-
-
-## Fullscreen mode
-bind -n C-F resize-pane -Z
+# bind -n C-l choose-session 
+# 
+# unbind C-b
+# set -g prefix M-q
+# bind M-q send-prefix
+# 
+# ## Resizing windows
+# bind -n M-S-left resize-pane -L 2
+# bind -n M-S-right resize-pane -R 2
+# bind -n M-S-up resize-pane -U 2
+# bind -n M-S-down resize-pane -D 2
+# 
+# ## Creating and deleting tab
+# 
+# bind -n M-w kill-window
+# bind -n C-n new-window
+# 
+# ## Creating and deleting sessions
+# bind -n M-n new-session
+# 
+# 
+# ## Fullscreen mode
+# bind -n C-F resize-pane -Z
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
